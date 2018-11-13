@@ -33,7 +33,7 @@ public class SPF_US extends RouteBuilder {
     			.setHeader("operationNamespace", constant("http://www.huawei.com/bme/cbsinterface/cbs/accountmgr"))
     			.setHeader("soapAction", constant("QueryBalance"))
     			.setHeader("requestDataType", simple("${in.header.Content-Type}")) // save the type of request which was sent xml or json
-    			.to("jms:spf_ds")
+    			.to("jms:spf_ds") // to same JMS queue as SOAP requests for processing
     			.choice()  // let camel know how to bind the response - jax-b or jackson
     				.when(simple("${header.requestDataType} == 'application/json'"))
     					.marshal("json")

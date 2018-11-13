@@ -18,7 +18,17 @@ public class SPF_DS extends RouteBuilder {
     public void configure() {
     	from("jms:spf_ds")
     		.routeId("spf_ds").startupOrder(1) // ensures spf_ds is started first
-    		.to("cxf:bean:downstreamCBS");
+    		.hystrix().id("downstreamCBS") // hystrix circuit breaker and bulkhead pattern to prevent downstream failures from cascading to the entire ESB
+    			.hystrixConfiguration()
+    				.circuitBreakerRequestVolumeThreshold(10) // number of requests failing that will trip the circuit
+    				.metricsRollingPercentileWindowInMilliseconds(10000)
+    				.executionTimeoutInMilliseconds(10000) // time before a single request times out
+    				.circuitBreakerSleepWindowInMilliseconds(5000) // time before circuit breaker tries requests again
+    			.end()
+    			.to("cxf:bean:downstreamCBS") // call the downstream billing system server
+    			.onFallback() // error response on timeout
+    				.bean("timeoutResponse", "generateTimeoutResponse")
+    		.end();
     }
 
 }
