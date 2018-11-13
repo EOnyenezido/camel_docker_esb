@@ -20,6 +20,8 @@
        xsi:schemaLocation="
          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
          http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd">
+         
+    <bean id="GZIPInInterceptor" class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor"/>
 
     <cxf:cxfEndpoint id="spfEndpoint"
                      address="http://localhost:9000/spf/"
@@ -27,19 +29,23 @@
                      wsdlURL="classpath:wsdl/ESBaccountmgrService_v_1_0.wsdl"/>
                      
     <cxf:cxfEndpoint id="mpfsEndpoint"
-                     address="http://localhost:9001/mpfs/"
+                     address="http://localhost:9100/mpfs/"
                      serviceClass="com.huawei.bme.cbsinterface.bcservices.CBSInterfaceBusinessMgr"
                      wsdlURL="classpath:wsdl/ESB_BusinessMgr_MPFS_V_1_0_1.wsdl"/>
     
     <cxf:cxfEndpoint id="mpfaEndpoint"
-                     address="http://localhost:9002/mpfa/"
+                     address="http://localhost:9200/mpfa/"
                      serviceClass="com.esb.crm.crmservice.biz.CRMInterfaceServicePortType"
                      wsdlURL="classpath:wsdl/CRMInterfaceService.wsdl"/>
                      
     <cxf:cxfEndpoint id="downstreamCBS"
                      address="http://localhost:8088/mockCBS_Server/"
                      serviceClass="com.huawei.bme.cbsinterface.cbs.accountmgr.CBSInterfaceAccountMgrServicePortType"
-                     wsdlURL="classpath:wsdl/ESBaccountmgrService_v_1_0.wsdl"/>
+                     wsdlURL="classpath:wsdl/ESBaccountmgrService_v_1_0.wsdl">
+    	<cxf:inInterceptors>
+        	<ref bean="GZIPInInterceptor"/>
+    	</cxf:inInterceptors>
+    </cxf:cxfEndpoint>
                      
     <cxf:cxfEndpoint id="downstreamTOPENG"
                      address="http://localhost:8089/mockTOPENG_Server/"

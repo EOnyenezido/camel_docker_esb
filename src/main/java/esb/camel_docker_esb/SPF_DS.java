@@ -3,6 +3,8 @@ package esb.camel_docker_esb;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
+import com.huawei.bme.cbsinterface.cbs.accountmgrmsg.QueryBalanceResultMsg;
+
 @Component
 public class SPF_DS extends RouteBuilder {
 	
