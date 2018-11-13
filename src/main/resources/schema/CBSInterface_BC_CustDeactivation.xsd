@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="CustDeactivationRequest">
+		<xs:sequence>
+			<xs:element name="CustAccessCode" type="bccommon:CustAccessCode"/>
+			<xs:element name="OpType" type="xs:string"/>
+			<xs:element name="AdditionalProperty" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>It is reserved for future extension</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bccommon:SimpleProperty"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

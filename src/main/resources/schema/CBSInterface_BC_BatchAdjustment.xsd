@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:complexType name="BatchAdjustmentRequest">
+		<xs:sequence>
+			<xs:element name="OpType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>It is used to indicate the operation is adjustment or reset</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FileName" type="xs:string"/>
+			<xs:element name="AdjustmentInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BalanceType" type="xs:string" minOccurs="0"/>
+						<xs:element name="BalanceID" type="xs:long" minOccurs="0"/>
+						<xs:element name="AdjustmentType" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>It indicates the adjustment is up or down</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="AdjustmentAmt" type="xs:long" minOccurs="0"/>
+						<xs:element name="CurrencyID" type="xs:integer" minOccurs="0"/>
+						<xs:element name="EffectiveTime" type="xs:string" minOccurs="0"/>
+						<xs:element name="ExpireTime" type="xs:string" minOccurs="0"/>
+						<xs:element name="ExtendDays" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>add at EMTS for adjustment</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="FreeUnitAdjustmentInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FreeUnitInstanceID" type="xs:long" minOccurs="0"/>
+						<xs:element name="FreeUnitType" type="xs:string" minOccurs="0"/>
+						<xs:element name="AdjustmentType" type="xs:string" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>It indicates the adjustment is up or down</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="AdjustmentAmt" type="xs:long" minOccurs="0"/>
+						<xs:element name="EffectiveTime" type="xs:string" minOccurs="0"/>
+						<xs:element name="ExpireTime" type="xs:string" minOccurs="0"/>
+						<xs:element name="ExtendDays" type="xs:int" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>add at EMTS</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AdjustmentReasonCode" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

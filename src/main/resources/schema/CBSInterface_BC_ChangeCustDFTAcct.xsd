@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="ChangeCustDFTAcctRequest">
+		<xs:sequence>
+			<xs:element name="CustAccessCode" type="bccommon:CustAccessCode"/>
+			<xs:element name="OpType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>1: Set Default Account
+2: Change Default Account</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NewDFTAcct">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PayRelationKey" type="xs:string"/>
+						<xs:element name="AcctKey" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="EffectiveTime" type="bccommon:EffectMode"/>
+			<xs:element name="ControlProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

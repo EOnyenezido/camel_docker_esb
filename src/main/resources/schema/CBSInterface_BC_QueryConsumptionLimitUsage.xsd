@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<!---->
+	<xs:complexType name="QueryConsumptionLimitRequest">
+		<xs:sequence>
+			<xs:element name="QueryObj">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="CustAccessCode" type="bccommon:CustAccessCode"/>
+						<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="LimitType" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryConsumptionLimitResult">
+		<xs:sequence>
+			<xs:element name="LimitUsageList" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="LimitType" type="xs:string"/>
+						<xs:element name="LimitTypeName" type="xs:string"/>
+						<xs:element name="Amount" type="xs:long"/>
+						<xs:element name="UsageAmount" type="xs:long"/>
+						<xs:element name="LimitCtrlType" type="xs:string"/>
+						<xs:element name="CurrencyID" type="xs:integer" minOccurs="0"/>
+						<xs:element name="MeasureType" type="xs:integer" minOccurs="0"/>
+						<xs:element name="MeasureID" type="xs:integer" minOccurs="0"/>
+						<xs:element name="BeginDate" type="bccommon:DateTime" minOccurs="0"/>
+						<xs:element name="EndDay" type="bccommon:DateTime" minOccurs="0"/>
+						<xs:element name="LimitParam" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ParamCode" type="xs:string"/>
+									<xs:element name="ParamValue" type="xs:long"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

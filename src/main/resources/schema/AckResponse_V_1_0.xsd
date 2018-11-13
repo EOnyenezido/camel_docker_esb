@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.accenture.com/schemas/AckRes/AckResponse_V_1_0"
+	 targetNamespace="http://www.accenture.com/schemas/AckRes/AckResponse_V_1_0"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:element name="ResultData">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="AckResultCode" type="xs:string"/>
+				<xs:element name="AckResultDesc" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

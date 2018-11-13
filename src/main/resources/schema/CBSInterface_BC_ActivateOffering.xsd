@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="ActivateOfferingRequest">
+		<xs:sequence>
+			<xs:element name="OfferingOwner">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+						<xs:element name="AcctAccessCode">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:AcctAccessCode">
+										<xs:sequence>
+											<xs:element name="PayType" type="xs:string" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="CustAccessCode" type="bccommon:CustAccessCode"/>
+						<xs:element name="SubGroupAccessCode" type="bccommon:SubGroupAccessCode"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OfferingInst" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="OfferingKey" type="bccommon:OfferingKey"/>
+						<xs:element name="TrialStartTime" type="bccommon:DateTime" minOccurs="0"/>
+						<xs:element name="TrialEndTime" type="bccommon:DateTime" minOccurs="0"/>
+						<xs:element name="ExpirationTime" type="bccommon:DateTime" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ActivateProductRequest">
+		<xs:sequence>
+			<xs:element name="OfferingOwner">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+						<xs:element name="AcctAccessCode">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:AcctAccessCode">
+										<xs:sequence>
+											<xs:element name="PayType" type="xs:string" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="CustAccessCode" type="bccommon:CustAccessCode"/>
+						<xs:element name="SubGroupAccessCode" type="bccommon:SubGroupAccessCode"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OfferingKey" type="bccommon:OfferingKey"/>
+			<xs:element name="Product" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ProductID" type="xs:integer"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

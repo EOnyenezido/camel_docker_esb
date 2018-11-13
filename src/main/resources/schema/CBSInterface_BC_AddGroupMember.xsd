@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="AddGroupMemberRequest">
+		<xs:sequence>
+			<xs:element name="SubGroupAccessCode" type="bccommon:SubGroupAccessCode"/>
+			<xs:element name="GroupMember">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SubClass" type="xs:string" minOccurs="0"/>
+						<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+						<xs:element name="SubGrpMember" type="bccommon:SubGroupMember" minOccurs="0"/>
+						<xs:element name="SubInfo" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="NetworkType" type="xs:string" minOccurs="0"/>
+									<xs:element name="NumberType" type="xs:string" minOccurs="0"/>
+									<xs:element name="WrittenLang" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>It is the written language code of subscriber. </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="IVRLang" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>It is the phonetic language code of subscriber. </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DisplayNumber" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PaymentRelation" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="NewDFTAcct" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PayRelationKey" type="xs:string"/>
+									<xs:element name="AcctKey" type="xs:string"/>
+									<xs:element name="PaymentLimit" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="PaymentLimitKey" type="xs:string"/>
+												<xs:element name="PaymentLimitInfo" minOccurs="0">
+													<xs:complexType>
+														<xs:complexContent>
+															<xs:extension base="bccommon:PaymentLimit"/>
+														</xs:complexContent>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="AddPayRelation" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PayRelation" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="PayRelationKey" type="xs:string"/>
+												<xs:element name="AcctKey" type="xs:string"/>
+												<xs:element name="Priority" type="xs:integer"/>
+												<xs:element name="PayRelExtRule" type="bccommon:PayRelExtRule" minOccurs="0"/>
+												<xs:element name="OnlyPayRelFlag" type="xs:string" minOccurs="0"/>
+												<xs:element name="PaymentLimitKey" type="xs:string" minOccurs="0"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="PaymentLimit" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="PaymentLimitKey" type="xs:string"/>
+												<xs:element name="PaymentLimitInfo">
+													<xs:complexType>
+														<xs:complexContent>
+															<xs:extension base="bccommon:PaymentLimit"/>
+														</xs:complexContent>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GroupMemberOffering" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bccommon:OfferingInst">
+							<xs:sequence>
+								<xs:element name="ActivationTime" type="bccommon:ActiveMode" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="EffectiveTime" type="bccommon:EffectMode"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

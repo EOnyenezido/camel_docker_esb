@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any)--><xs:schema targetNamespace="http://www.huawei.com/bme/cbsinterface/cbscommon" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon">
+  <xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+  <xs:complexType name="ChangeSubStatusRequest">
+    <xs:sequence>
+      <xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+      <xs:element name="OpType" type="xs:string"/>
+      <xs:element name="OldStatus" type="xs:string" minOccurs="0"/>
+      <xs:element name="NewStatus" type="xs:string" minOccurs="0"/>
+      <xs:element name="HoldingDays" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is used in customer application scenario. For example, the customer wants to suspend his mobile and auto-resume after X days.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AdditionalProperty" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>It is reserved for future extension</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="bccommon:SimpleProperty"/>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChangeSubStatusResult">
+    <xs:sequence>
+      <xs:element name="OldStatus" type="xs:string"/>
+      <xs:element name="NewStatus" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

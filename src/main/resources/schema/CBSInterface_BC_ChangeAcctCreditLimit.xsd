@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="ChangeAcctCreditLimitRequest">
+		<xs:sequence>
+			<xs:element name="AcctAccessCode">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bccommon:AcctAccessCode">
+							<xs:sequence>
+								<xs:element name="PayType" type="xs:string" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AccountCredit" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CreditLimitType" type="xs:string" minOccurs="0"/>
+						<xs:choice>
+							<xs:element name="CommonCreditLimit">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="NewLimitAmount" type="xs:long"/>
+										<xs:element name="EffectiveTime" type="bccommon:EffectMode"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="TmpCreditLimit">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="OpType" type="xs:string" minOccurs="0"/>
+										<xs:element name="CreditInstID" type="xs:long" minOccurs="0"/>
+										<xs:element name="NewTmpLimitAmount" type="xs:long" minOccurs="0"/>
+										<xs:element name="EffectiveTime" type="bccommon:EffectMode" minOccurs="0"/>
+										<xs:element name="ExpirationTime" type="bccommon:DateTime" minOccurs="0"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AddAccountCredit" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CreditLimitType" type="xs:string"/>
+						<xs:element name="LimitAmount" type="xs:long"/>
+						<xs:element name="EffectiveTime" type="bccommon:EffectMode" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DelAccountCredit" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CreditLimitType" type="xs:string"/>
+						<xs:element name="ExpirationTime" type="bccommon:DateTime" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeAcctCreditLimitResult">
+		<xs:sequence>
+			<xs:element name="CreditLimit" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CreditInstID" type="xs:long"/>
+						<xs:element name="LimitClass" type="xs:string"/>
+						<xs:element name="Amount" type="xs:long"/>
+						<xs:element name="EffectiveTime" type="xs:string"/>
+						<xs:element name="ExpireTime" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

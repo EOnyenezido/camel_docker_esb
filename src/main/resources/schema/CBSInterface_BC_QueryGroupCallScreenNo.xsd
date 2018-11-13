@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="QueryGrpCallScreenNoRequest">
+		<xs:sequence>
+			<xs:element name="SubGroupAccessCode" type="bccommon:SubGroupAccessCode"/>
+			<xs:element name="CallScreenType" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryGrpCallScreenNoResult">
+		<xs:sequence>
+			<xs:element name="CallScreenNoInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CallScreenNo" type="xs:string"/>
+						<xs:element name="ScreenNoType" type="xs:integer" minOccurs="0"/>
+						<xs:element name="EffectiveDate" type="bccommon:DateTime" minOccurs="0"/>
+						<xs:element name="ExpireDate" type="bccommon:DateTime" minOccurs="0"/>
+						<xs:element name="WeekStart" type="xs:integer" minOccurs="0"/>
+						<xs:element name="WeekStop" type="xs:integer" minOccurs="0"/>
+						<xs:element name="TimeStart" type="xs:string" minOccurs="0"/>
+						<xs:element name="TimeStop" type="xs:string" minOccurs="0"/>
+						<xs:element name="RouteNumber" type="xs:string" minOccurs="0"/>
+						<xs:element name="RoutingMethod" type="xs:integer" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

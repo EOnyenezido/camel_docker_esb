@@ -1,0 +1,1221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:bizmsg="http://www.esb.com/crm/crmservice/bizmsg" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:common="http://www.esb.com/crm/crmservice/common"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:jms="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS" 
+	xmlns:business="http://www.esb.com/crm/crmservice/biz" targetNamespace="http://www.esb.com/crm/crmservice/biz">
+	<wsdl:types>
+		<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+			xmlns:common="http://www.esb.com/crm/crmservice/common"
+			targetNamespace="http://www.esb.com/crm/crmservice/common">
+			<xs:complexType name="RequestHeader">
+				<xs:sequence>
+					<xs:element name="CommandId" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>(*Message command ID. OCS provide special value
+								according special interface)*)
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Version" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>(*Version ID,current version is 1(CRM is always
+								1)*)
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="TransactionId" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>(*Transaction ID,used to compound session,
+								default null (CRM is always null)*)
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SequenceId" type="xs:string">
+						<xs:annotation>
+							<xs:documentation> (*Sequence ID,used to compound session,default
+								1(CRM is always 1)*)
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="RequestType">
+						<xs:annotation>
+							<xs:documentation>(*valid to compound session, default value is
+								None, enumerate values as follows:
+								Event, not compound session
+								type
+								Start, session begin
+								Continue,session continue
+								Stop, session
+								stop.
+								(CRM is always Event)*)
+							</xs:documentation>
+						</xs:annotation>
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="Event" />
+								<xs:enumeration value="Start" />
+								<xs:enumeration value="Continue" />
+								<xs:enumeration value="Stop" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element minOccurs="0" name="SessionEntity"
+						type="common:SessionEntityType">
+						<xs:annotation>
+							<xs:documentation>for security use
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="InterFrom" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>the source of interface:
+								4050000 for BSS
+								4050001
+								for Bank
+								4050002 for SP
+								......
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="InterMode" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The mode of interface
+								4050000 for Face to Face
+								4050001 for Website
+								4050002 for IVR
+								......
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="InterMedi" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Interaction Media
+								if Website then give URL
+								if IVR
+								then give access number
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="visitArea" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>visit area
+								Only IVR is useful
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="currentCell" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The current cell of calling
+								Only IVR is useful
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="additionInfo" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>addition information
+								it is optional
+								if bank then
+								bankcode
+								if SP then Spcode
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="ThirdPartyID" type="xs:int">
+						<xs:annotation>
+							<xs:documentation>reserve parameter 1
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="Reserve2" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>reserve parameter 2
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="Reserve3" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>reserve parameter 3
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="PartnerID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Partner id,this parameter is used for fill the
+								information of the partner when the session is generated by
+								carrier
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="OperatorID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>CRM system operator id
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="TradePartnerID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>partner id,this parameter is used for fill the
+								information of partner when the session is generated by partner
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="PartnerOperID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>partner operaor id
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="BelToAreaID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>belong to area
+								it is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="SerialNo" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>CRM system request serial number
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="Remark" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>The remark information about this operation, it
+								is optional
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ResultHeader">
+				<xs:sequence>
+					<xs:element name="CommandId" type="xs:string" />
+					<xs:element name="Version" type="xs:string" />
+					<xs:element name="TransactionId" type="xs:string" />
+					<xs:element name="SequenceId" type="xs:string" />
+					<xs:element name="ResultCode" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Indicates a code of success/failure, failure
+								reasons. 405000000: success Other values: failure reasons
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element minOccurs="0" name="ResultDesc" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="SessionEntityType">
+				<xs:sequence>
+					<xs:element name="Name" type="xs:string" />
+					<xs:element name="Password" type="xs:string" />
+					<xs:element name="RemoteAddress" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+			xmlns:business="http://www.esb.com/crm/crmservice/biz"
+			targetNamespace="http://www.esb.com/crm/crmservice/biz">
+			<xs:annotation>
+				<xs:documentation>The following is single operation.
+				</xs:documentation>
+			</xs:annotation>
+			<xs:complexType name="BindSubscriberNo">
+				<xs:all>
+					<xs:element name="SubscriberNo" type="xs:string" />
+					<xs:element name="SubscriberNoType" type="xs:int" />
+					<xs:element name="IMSI" type="xs:string" minOccurs="0" />
+					<xs:element name="ApplyTime" type="xs:string" minOccurs="0" />
+					<xs:element name="ExpireTime" type="xs:string" minOccurs="0" />
+				</xs:all>
+			</xs:complexType>
+			<xs:simpleType name="CustomerGrade">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="4050000" />
+					<xs:enumeration value="4050001" />
+					<xs:enumeration value="4050002" />
+					<xs:enumeration value="4050003" />
+					<xs:enumeration value="4050004" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="Gender">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="4050000" />
+					<xs:enumeration value="4050001" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="Paymode">
+				<xs:annotation>
+					<xs:documentation>Prepaid/Postpaid/Hybrid</xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="0" />
+					<xs:enumeration value="1" />
+					<xs:enumeration value="2" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="ValidMode">
+				<xs:annotation>
+					<xs:documentation>Immediately/Next bill cycle</xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="4050000" />
+					<xs:enumeration value="4050001" />
+					<xs:enumeration value="4050002" />
+					<xs:enumeration value="4050003" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="OperationType">
+				<xs:annotation>
+					<xs:documentation>Add/Delete/Modify</xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="1" />
+					<xs:enumeration value="2" />
+					<xs:enumeration value="3" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="IDType">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="4050000" />
+					<xs:enumeration value="4050001" />
+					<xs:enumeration value="4050002" />
+					<xs:enumeration value="4050003" />
+					<xs:enumeration value="4050004" />
+					<xs:enumeration value="4059999" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="ProductOperationType">
+				<xs:annotation>
+					<xs:documentation>Add/Delete/Modify/NoChange</xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="1" />
+					<xs:enumeration value="2" />
+					<xs:enumeration value="3" />
+					<xs:enumeration value="6" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:complexType name="ProductOrderInfoType">
+				<xs:all>
+					<xs:element name="ProductID" type="xs:string" />
+					<xs:element name="ProductOrderKey" type="xs:string" />
+					<xs:element name="EffectiveDate" type="xs:string" />
+					<xs:element name="ExpireDate" type="xs:string" />
+					<xs:element name="AutoType" type="xs:int" />
+				</xs:all>
+			</xs:complexType>
+			<xs:complexType name="BalanceRecordType">
+				<xs:all>
+					<xs:element minOccurs="0" name="BalanceDesc" type="xs:string" />
+					<xs:element name="Balance" type="xs:long" />
+					<xs:element minOccurs="0" name="MinMeasureId" type="xs:int" />
+					<xs:element minOccurs="0" name="UnitType" type="xs:int" />
+					<xs:element name="AccountType" type="xs:string" />
+					<xs:element name="ExpireTime" type="xs:string" />
+					<xs:element minOccurs="0" name="AccountCredit" type="xs:long" />
+					<xs:element minOccurs="0" name="AccountKey" type="xs:int" />
+					<xs:element minOccurs="0" name="ProductID" type="xs:string" />
+					<xs:element minOccurs="0" name="ProductOrderKey" type="xs:string" />
+				</xs:all>
+			</xs:complexType>
+			<xs:complexType name="SimpleProperty">
+				<xs:sequence>
+					<xs:element name="Id" type="xs:string">
+						<xs:annotation>
+							<xs:documentation />
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="Value" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ComplexProperty">
+				<xs:sequence>
+					<xs:element name="Id" type="xs:string" />
+					<xs:element maxOccurs="unbounded" name="SimpleProperty"
+						type="business:SimpleProperty" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Service">
+				<xs:sequence>
+					<xs:element name="Id" type="xs:string" />
+					<xs:element minOccurs="0" name="Status" type="xs:string" />
+					<xs:element minOccurs="0" name="RegistrationTime" type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="SimpleProperty" type="business:SimpleProperty" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Product">
+				<xs:sequence>
+					<xs:element name="Id" type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="SimpleProperty" type="business:SimpleProperty" />
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="MMLCommand"
+						type="business:MMLCommand" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="IndividualCustomer">
+				<xs:sequence>
+					<xs:element name="Name" type="xs:string" minOccurs="0" />
+					<xs:element minOccurs="0" name="Code" type="xs:string" />
+					<xs:element minOccurs="0" name="IdType" type="business:IDType" />
+					<xs:element minOccurs="0" name="IdCode" type="xs:string" />
+					<xs:element name="Gender" type="business:Gender" />
+					<xs:element name="Birthday" type="xs:string" />
+					<xs:element name="Address" type="xs:string" />
+					<xs:element name="Grade" type="business:CustomerGrade" />
+					<xs:element minOccurs="0" name="BelToAreaID" type="xs:string" />
+					<xs:element minOccurs="0" name="Email" type="xs:string" />
+					<xs:element minOccurs="0" name="ZipCode" type="xs:string" />
+					<xs:element minOccurs="0" name="RegistrationTime" type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="SimpleProperty" type="business:SimpleProperty" />
+					<xs:element minOccurs="0" name="CustomerType" type="xs:integer" />
+					<xs:element minOccurs="0" name="Country" type="xs:integer" />
+					<xs:element minOccurs="0" name="NativePlace" type="xs:integer" />
+					<xs:element minOccurs="0" name="NationType" type="xs:integer" />
+					<xs:element minOccurs="0" name="JobType" type="xs:integer" />
+					<xs:element minOccurs="0" name="Education" type="xs:integer" />
+					<xs:element minOccurs="0" name="CreditGrade" type="xs:integer" />
+					<xs:element minOccurs="0" name="CreditAmount" type="xs:integer" />
+					<xs:element minOccurs="0" name="CustomerState" type="xs:integer" />
+					<xs:element minOccurs="0" name="MaritalStatus" type="xs:integer" />
+					<xs:element minOccurs="0" name="Skill" type="xs:string" />
+					<xs:element minOccurs="0" name="SocialNo" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GroupCustomer">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="ParentGroupCode" type="xs:string" />
+					<xs:element name="GroupCode" type="xs:string" />
+					<xs:element name="IdType" type="business:IDType" />
+					<xs:element name="IdCode" type="xs:string" />
+					<xs:element name="Name" type="xs:string" />
+					<xs:element name="Type" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>(* Customer Type *)</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="BelToAreaID" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>(* Which area customer belongs to *)
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Customer">
+				<xs:choice>
+					<xs:element name="Individual" type="business:IndividualCustomer" />
+					<xs:element name="Group" type="business:GroupCustomer" />
+				</xs:choice>
+			</xs:complexType>
+			<xs:complexType name="SubscriberBasic">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Code" type="xs:string" />
+					<xs:element minOccurs="0" name="BrandId" type="xs:string" />
+					<xs:element minOccurs="0" name="RegistrationTime" type="xs:string" />
+					<xs:element name="Lang" type="xs:string" />
+					<xs:element minOccurs="0" name="SMSLang" type="xs:string" />
+					<xs:element minOccurs="0" name="USSDLang" type="xs:string" />
+					<xs:element name="PaidMode" type="business:Paymode" nillable="true" />
+					<xs:element minOccurs="0" name="InitialCredit" nillable="true" >
+						<xs:simpleType>
+							<xs:restriction base="xs:int">
+								<xs:minInclusive value="0" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+					<xs:element minOccurs="0" name="BelToAreaID" type="xs:string" />
+					<xs:element name="MainPackageId" type="business:MainPackage" nillable="true" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="SimpleProperty" type="business:SimpleProperty" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Subscriber">
+				<xs:complexContent>
+					<xs:extension base="business:SubscriberBasic">
+						<xs:sequence>
+							<xs:element maxOccurs="1" minOccurs="0" name="iccid"
+								type="xs:string" />
+							<xs:element maxOccurs="1" minOccurs="0" name="IMSI"
+								type="xs:string" />
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+			<xs:complexType name="Account">
+				<xs:sequence>
+					<xs:element name="Name" type="xs:string" />
+					<xs:element minOccurs="0" name="Code" type="xs:string" />
+					<xs:element name="Address" type="xs:string" />
+					<xs:element name="Title" type="xs:string" />
+					<xs:element name="BillcycleType" type="xs:string" />
+					<xs:element minOccurs="0" name="RelationCustomer" type="xs:int" />
+					<xs:element maxOccurs="unbounded" minOccurs="0"
+						name="SimpleProperty" type="business:SimpleProperty" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="BatchCommon">
+				<xs:sequence />
+			</xs:complexType>
+			<xs:complexType name="MMLCommand">
+				<xs:sequence>
+					<xs:element name="MMLParamName" type="xs:string" />
+					<xs:element name="MMLParamValue" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Common">
+				<xs:sequence>
+					<xs:element name="SubscriberNo" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MainPackage">
+				<xs:sequence>
+					<xs:element name="Id" type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="MMLCommand" type="business:MMLCommand" />
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="OfferInfoType">
+				<xs:sequence>
+					<xs:element name="OfferingID" type="business:OfferingIDType" />
+					<xs:element name="OfferingOrderKey" type="xs:string" minOccurs="0"/>
+					<xs:element name="ExpireTime" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>		
+			<xs:complexType name="OfferingIDType">
+				<xs:sequence>
+					<xs:element name="OfferingCode" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ChangeAttrListType">
+				<xs:sequence>
+					<xs:element name="AttrItem" type="business:AttrItemType" maxOccurs='unbounded'/>
+				</xs:sequence>
+			</xs:complexType>	
+			<xs:complexType name="AttrItemType">
+				<xs:sequence>
+					<xs:element name="AttrID" type="xs:string"/>
+					<xs:element name="OldValue" type="xs:string"/>
+					<xs:element name="NewValue" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ParaListType">
+				<xs:sequence>
+					<xs:element name="ParaItem" type="business:ParaItemType" maxOccurs='unbounded'/>
+				</xs:sequence>
+			</xs:complexType>	
+			<xs:complexType name="ParaItemType">
+				<xs:sequence>
+					<xs:element name="ParaName" type="xs:string"/>
+					<xs:element name="ParaValue" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="BalanceRecListType">
+				<xs:sequence>
+					<xs:element name="BalanceRecord" type="business:BalanceListRecordType" maxOccurs='unbounded'/>
+				</xs:sequence>
+			</xs:complexType>	
+			<xs:complexType name="BalanceListRecordType">
+				<xs:sequence>
+					<xs:element name="Balance" type="xs:long" />
+					<xs:element name="AccountType" type="xs:string" />
+					<xs:element name="ExpireTime" type="xs:string" minOccurs="0"/>
+					<xs:element name="MinMeasureId" type="xs:int" minOccurs="0" />
+					<xs:element name="AccountKey" type="xs:long" minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ProductFeeListType">
+				<xs:sequence>
+					<xs:element name="ProductFee" type="business:ProductFeeType" maxOccurs='unbounded'/>
+				</xs:sequence>
+			</xs:complexType>	
+			<xs:complexType name="ProductFeeType">
+				<xs:sequence>
+					<xs:element name="ChargedAmt" type="xs:long" />
+					<xs:element name="ChargeType" type="xs:string" />
+					<xs:element name="MinMeasureId" type="xs:int" minOccurs="0" />
+					<xs:element name="FeeID" type="xs:int" minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ProductOrderInfoListType">
+				<xs:sequence>
+					<xs:element name="ProductOrderInfo" type="business:ProductOrderInfoType" maxOccurs='unbounded'/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="OneOffDeductionRequest">
+				<xs:all>
+					<xs:element name="LogID" type="xs:string" minOccurs="0" />
+					<xs:element name="SubscriberNo" type="xs:string" />
+					<xs:element name="OperationID" type="xs:int" minOccurs="0" />
+					<xs:element name="DeductAmt" type="xs:long" />
+					<xs:element name="MinMeasureId" type="xs:int" minOccurs="0" />
+					<xs:element name="AdditionalInfo" type="xs:string"
+						minOccurs="0" />
+					<xs:element name="OperationType" type="xs:int"
+						minOccurs="0" />
+					<xs:element name="CustID" type="xs:string" minOccurs="0" />
+					<xs:element name="DeductFromParent" type="xs:int"
+						minOccurs="0" />
+				</xs:all>
+			</xs:complexType>
+			<xs:complexType name="AcctAccessCode">
+				<xs:choice>
+					<xs:element name="PrimaryIdentity" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Identify the default Account which the Primary
+								Identity Use.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="AccountKey" type="xs:string" />
+					<xs:element name="AccountCode" type="xs:string" />
+				</xs:choice>
+			</xs:complexType>
+			<xs:complexType name="SubAccessCode">
+				<xs:choice>
+					<xs:element name="PrimaryIdentity" type="xs:string" />
+					<xs:element name="SubscriberKey" type="xs:string" />
+				</xs:choice>
+			</xs:complexType>
+			<xs:complexType name="CustAccessCode">
+				<xs:choice>
+					<xs:element name="PrimaryIdentity" type="xs:string">
+						<xs:annotation>
+							<xs:documentation>Identify the Customer which the Primary
+								Identity belongs to.
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="CustomerKey" type="xs:string" />
+					<xs:element name="CustomerCode" type="xs:string" />
+				</xs:choice>
+			</xs:complexType>
+			<xs:complexType name="SubGroupAccessCode">
+				<xs:choice>
+					<xs:element name="SubGroupKey" type="xs:string" />
+					<xs:element name="SubGroupCode" type="xs:string" />
+				</xs:choice>
+			</xs:complexType>
+			<xs:complexType name="FeeDeductionRollBackRequest">
+				<xs:sequence>
+					<xs:element name="DeductSerialNo" type="xs:string" />
+					<xs:element name="DeductObj">
+						<xs:complexType>
+							<xs:choice>
+								<xs:element name="SubAccessCode" type="business:SubAccessCode" />
+								<xs:element name="AcctAccessCode">
+									<xs:complexType>
+										<xs:complexContent>
+											<xs:extension base="business:AcctAccessCode">
+												<xs:sequence>
+													<xs:element name="PayType" type="xs:string"
+														minOccurs="0" />
+												</xs:sequence>
+											</xs:extension>
+										</xs:complexContent>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="CustAccessCode" type="business:CustAccessCode" />
+								<xs:element name="SubGroupAccessCode" type="business:SubGroupAccessCode" />
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MultiSIMRequest">
+				<xs:sequence>
+					<xs:element name="SubscriberNo" type="business:Common" />
+					<xs:element name="PaymMode" type="business:Paymode" />
+					<xs:element name="OperationType" type="business:OperationType" />
+					<xs:element minOccurs="0" name="OneOffDeductionRequest"
+						type="business:OneOffDeductionRequest" />
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="MMLCommand"
+						type="business:MMLCommand" />
+					<xs:element name="FeeDeductionRollBackRequest" type="business:FeeDeductionRollBackRequest" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="OCSWorkOrderRequest">
+				<xs:sequence>
+					<xs:element name="Msisdn" type="xs:string" minOccurs="0" />
+					<xs:element name="ChangeType" type="xs:string" />
+					<xs:element name="ChangeReason" type="xs:string" />
+					<xs:element name="OfferInfo" type="business:OfferInfoType" />
+					<xs:element name="eventDate" type="xs:string" minOccurs="0" />
+					<xs:element name="originHost" type="xs:string" minOccurs="0" />
+					<xs:element name="originRelam" type="xs:string" minOccurs="0" />
+					<xs:element name="productEffectiveTime" type="xs:string" minOccurs="0" />
+					<xs:element name="reserve2" type="xs:string" minOccurs="0" />
+					<xs:element name="reserve3" type="xs:string" minOccurs="0" />
+					<xs:element name="reserve4" type="xs:string" minOccurs="0" />
+					<xs:element name="reserve5" type="xs:string" minOccurs="0" />
+					<xs:element name="workOrderType" type="xs:string" minOccurs="0" />
+					<xs:element name="IMSI" type="xs:string" minOccurs="0" />
+					<xs:element name="Balance" type="xs:string" minOccurs="0" />
+					<xs:element name="CategoryIDs" type="xs:string" minOccurs="0" />
+					<xs:element name="ChangeAttrList" type="business:ChangeAttrListType" minOccurs="0" />
+					<xs:element name="ParaList" type="business:ParaListType" minOccurs="0" />
+					<xs:element name="BalanceRecList" type="business:BalanceRecListType" minOccurs="0" />
+					<xs:element name="ProductFeeList" type="business:ProductFeeListType" minOccurs="0" />
+					<xs:element name="ProductOrderInfoList" type="business:ProductOrderInfoListType" minOccurs="0" />
+					<xs:element name="AccessMode" type="xs:int" minOccurs="0" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="MVPPRequest">
+				<xs:sequence>
+					<xs:element name="SubscriberNo" type="xs:string" />
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="MMLCommand_New" type="business:MMLCommand" />
+					<xs:element minOccurs="0" name="Customer"
+						type="business:IndividualCustomer" />
+					<xs:element name="Subscriber">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Subscriber">
+									<xs:sequence>
+										<xs:element minOccurs="0" name="Password" type="xs:string" />
+										<xs:element minOccurs="0" name="SCPID" type="xs:int" />
+										<xs:element minOccurs="0" name="CBPID" type="xs:int" />
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="Account" type="business:Account" />
+					<xs:element minOccurs="1" name="Product_new" type="business:Product" />
+					<xs:element minOccurs="1" name="Product_del" type="business:Product" />
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="MMLCommand_DEL" type="business:MMLCommand" />
+					<xs:element maxOccurs="unbounded" name="Product_Appendant_Add">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Product">
+									<xs:sequence>
+										<xs:element name="OperationType" type="business:ProductOperationType">
+											<xs:annotation>
+												<xs:documentation>Add/Delete/Modify</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element maxOccurs="unbounded" minOccurs="0"
+											name="Service" type="business:Service" />
+										<xs:element minOccurs="0" name="ProductOrderKey"
+											type="xs:string" />
+										<xs:element name="ValidMode" type="business:ValidMode" />
+										<xs:element minOccurs="0" name="EffectiveDate"
+											type="xs:string" />
+										<xs:element minOccurs="0" name="ExpireDate" type="xs:string" />
+										<xs:element minOccurs="0" name="Status" type="xs:int" />
+										<xs:element name="BindSubscriberNo" type="business:BindSubscriberNo" />
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element maxOccurs="unbounded" name="Product_Appendant_Del">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Product">
+									<xs:sequence>
+										<xs:element name="OperationType" type="business:ProductOperationType">
+											<xs:annotation>
+												<xs:documentation>Add/Delete/Modify</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element maxOccurs="unbounded" minOccurs="0"
+											name="Service" type="business:Service" />
+										<xs:element minOccurs="0" name="ProductOrderKey"
+											type="xs:string" />
+										<xs:element name="ValidMode" type="business:ValidMode" />
+										<xs:element minOccurs="0" name="EffectiveDate"
+											type="xs:string" />
+										<xs:element minOccurs="0" name="ExpireDate" type="xs:string" />
+										<xs:element minOccurs="0" name="Status" type="xs:int" />
+										<xs:element name="BindSubscriberNo" type="business:BindSubscriberNo" />
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="NewSubscriberRequest">
+				<xs:sequence>
+				    <xs:element name="MNPFlag" type="xs:boolean" />
+					<xs:element name="SubscriberNo" type="xs:string" />
+					<xs:element minOccurs="0" name="Customer"
+						type="business:IndividualCustomer" />
+					<xs:element name="Subscriber">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Subscriber">
+									<xs:sequence>
+										<xs:element minOccurs="0" name="Password" type="xs:string" />
+										<xs:element minOccurs="0" name="SCPID" type="xs:int" />
+										<xs:element minOccurs="0" name="CBPID" type="xs:int" />
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element minOccurs="0" name="Account" type="business:Account" />
+					<xs:element maxOccurs="unbounded" name="Product_Appendant">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Product">
+									<xs:sequence>
+										<xs:element name="OperationType" type="business:ProductOperationType">
+											<xs:annotation>
+												<xs:documentation>Add/Delete/Modify</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element maxOccurs="unbounded" minOccurs="0"
+											name="Service" type="business:Service" />
+										<xs:element minOccurs="0" name="ProductOrderKey"
+											type="xs:string" />
+										<xs:element name="ValidMode" type="business:ValidMode" />
+										<xs:element minOccurs="0" name="EffectiveDate"
+											type="xs:string" />
+										<xs:element minOccurs="0" name="ExpireDate" type="xs:string" />
+										<xs:element minOccurs="0" name="Status" type="xs:int" />
+										<xs:element name="BindSubscriberNo" type="business:BindSubscriberNo" />
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="DeleteSubscriberRequest">
+				<xs:sequence>
+					<xs:element name="SubscriberNo" type="business:Common" />
+					<xs:element maxOccurs="unbounded" name="MMLCommand" type="business:MMLCommand" />
+					<xs:element name="PackageId" type="business:MainPackage" />
+					<xs:element maxOccurs="unbounded" name="Product_Appendant">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Product">
+									<xs:sequence>
+										<xs:element name="OperationType" type="business:ProductOperationType">
+											<xs:annotation>
+												<xs:documentation>Add/Delete/Modify</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element maxOccurs="unbounded" minOccurs="0"
+											name="Service" type="business:Service" />
+										<xs:element minOccurs="0" name="ProductOrderKey"
+											type="xs:string" />
+										<xs:element name="ValidMode" type="business:ValidMode" />
+										<xs:element minOccurs="0" name="EffectiveDate"
+											type="xs:string" />
+										<xs:element minOccurs="0" name="ExpireDate" type="xs:string" />
+										<xs:element minOccurs="0" name="Status" type="xs:int" />
+										<xs:element name="BindSubscriberNo" type="business:BindSubscriberNo" />
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="ChangeMainProdRequest">
+				<xs:complexContent>
+					<xs:extension base="business:Common">
+						<xs:sequence>
+							<xs:element minOccurs="0" name="NewBrandId" type="xs:string" />
+							<xs:element name="NewPackageId" type="business:MainPackage" />
+							<xs:element name="RemovePackageId" type="business:MainPackage" />
+							<xs:element minOccurs="0" name="HandlingChargeFlag"
+								type="xs:int" />
+							<xs:element name="ValidMode" type="business:ValidMode" />
+							<xs:element minOccurs="0" name="EffectiveDate" type="xs:string" />
+							<xs:element maxOccurs="unbounded" name="AddProductApp">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="business:Product">
+											<xs:sequence>
+												<xs:element name="OperationType" type="business:ProductOperationType">
+													<xs:annotation>
+														<xs:documentation>Add/Delete/Modify</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element maxOccurs="unbounded" minOccurs="0"
+													name="Service" type="business:Service" />
+												<xs:element minOccurs="0" name="ProductOrderKey"
+													type="xs:string" />
+												<xs:element name="ValidMode" type="business:ValidMode" />
+												<xs:element minOccurs="0" name="EffectiveDate"
+													type="xs:string" />
+												<xs:element minOccurs="0" name="ExpireDate" type="xs:string" />
+												<xs:element minOccurs="0" name="Status" type="xs:int" />
+												<xs:element name="BindSubscriberNo" type="business:BindSubscriberNo" />
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element maxOccurs="unbounded" name="RemovedProductApp">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="business:Product">
+											<xs:sequence>
+												<xs:element name="OperationType" type="business:ProductOperationType">
+													<xs:annotation>
+														<xs:documentation>Add/Delete/Modify</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element maxOccurs="unbounded" minOccurs="0"
+													name="Service" type="business:Service" />
+												<xs:element minOccurs="0" name="ProductOrderKey"
+													type="xs:string" />
+												<xs:element name="ValidMode" type="business:ValidMode" />
+												<xs:element minOccurs="0" name="EffectiveDate"
+													type="xs:string" />
+												<xs:element minOccurs="0" name="ExpireDate" type="xs:string" />
+												<xs:element minOccurs="0" name="Status" type="xs:int" />
+												<xs:element name="BindSubscriberNo" type="business:BindSubscriberNo" />
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element minOccurs="0" name="CustID" type="xs:string" />
+							<xs:element minOccurs="0" name="ppsAcctCredit" type="xs:long" />
+							<xs:element minOccurs="0" name="posAcctCredit" type="xs:long" />
+							<xs:element minOccurs="0" name="ppsAcctInitBal" type="xs:long" />
+							<xs:element minOccurs="0" name="posAcctInitBal" type="xs:long" />
+							<xs:element name="newBillcycleType" type="xs:int"
+								minOccurs="0" />
+							<xs:element name="BCChangeMode" type="xs:int"
+								minOccurs="0" />
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+			<xs:complexType name="ChangeAppendantProductRequest">
+				<xs:complexContent>
+					<xs:extension base="business:Common">
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" name="Product">
+								<xs:complexType>
+									<xs:complexContent>
+										<xs:extension base="business:Product">
+											<xs:sequence>
+												<xs:element name="OperationType" type="business:ProductOperationType">
+													<xs:annotation>
+														<xs:documentation>Add/Delete/Modify</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element maxOccurs="unbounded" minOccurs="0"
+													name="Service" type="business:Service" />
+												<xs:element minOccurs="0" name="ProductOrderKey"
+													type="xs:string" />
+												<xs:element name="ValidMode" type="business:ValidMode" />
+												<xs:element minOccurs="0" name="EffectiveDate"
+													type="xs:string" />
+												<xs:element minOccurs="0" name="ExpireDate" type="xs:string" />
+												<xs:element minOccurs="0" name="Status" type="xs:int" />
+												<xs:element name="BindSubscriberNo" type="business:BindSubscriberNo" />
+											</xs:sequence>
+										</xs:extension>
+									</xs:complexContent>
+								</xs:complexType>
+							</xs:element>
+							<xs:element minOccurs="0" name="Offer" type="xs:string"
+								default="N" />
+							<xs:element minOccurs="0" name="CustID" type="xs:string" />
+							<xs:element minOccurs="0" name="HandlingChargeFlag"
+								type="xs:int" />
+						</xs:sequence>
+					</xs:extension>
+				</xs:complexContent>
+			</xs:complexType>
+		</xs:schema>
+		<xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified"
+			targetNamespace="http://www.esb.com/crm/crmservice/bizmsg">
+			<xs:import namespace="http://www.esb.com/crm/crmservice/common" />
+			<xs:import namespace="http://www.esb.com/crm/crmservice/biz" />
+			<xs:element name="MultiSIMRequestMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RequestHeader" type="common:RequestHeader" />
+						<xs:element name="MultiSIMRequest" type="business:MultiSIMRequest" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="MultiSIMResultMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ResultHeader" type="common:ResultHeader" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OCSWorkOrderRequestMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RequestHeader" type="common:RequestHeader" />
+						<xs:element name="OCSWorkOrderRequest" type="business:OCSWorkOrderRequest" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OCSWorkOrderResultMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ResultHeader" type="common:ResultHeader" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="MVPPRequestMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RequestHeader" type="common:RequestHeader" />
+						<xs:element name="MVPPRequest" type="business:MVPPRequest" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="MVPPResultMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ResultHeader" type="common:ResultHeader" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NewSubscriberRequestMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RequestHeader" type="common:RequestHeader" />
+						<xs:element name="NewSubscriberRequest" type="business:NewSubscriberRequest" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NewSubscriberResultMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ResultHeader" type="common:ResultHeader" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteSubscriberRequestMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RequestHeader" type="common:RequestHeader" />
+						<xs:element name="DeleteSubscriberRequest" type="business:DeleteSubscriberRequest" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DeleteSubscriberResultMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ResultHeader" type="common:ResultHeader" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ChangeMainProdRequestMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RequestHeader" type="common:RequestHeader" />
+						<xs:element name="ChangeMainProdRequest" type="business:ChangeMainProdRequest" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ChangeMainProdResultMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ResultHeader" type="common:ResultHeader" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ChangeAppendantProductRequestMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="RequestHeader" type="common:RequestHeader" />
+						<xs:element name="ChangeAppendantProductRequest"
+							type="business:ChangeAppendantProductRequest" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="ChangeAppendantProductResultMsg">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ResultHeader" type="common:ResultHeader" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="ChangeAppendantProductRequestMessage">
+		<wsdl:part name="part1" element="bizmsg:ChangeAppendantProductRequestMsg" />
+	</wsdl:message>
+	<wsdl:message name="ChangeAppendantProductResultMessage">
+		<wsdl:part name="part1" element="bizmsg:ChangeAppendantProductResultMsg" />
+	</wsdl:message>
+	<wsdl:message name="DeleteSubscriberRequestMessage">
+		<wsdl:part name="part1" element="bizmsg:DeleteSubscriberRequestMsg" />
+	</wsdl:message>
+	<wsdl:message name="DeleteSubscriberResultMessage">
+		<wsdl:part name="part1" element="bizmsg:DeleteSubscriberResultMsg" />
+	</wsdl:message>
+	<wsdl:message name="NewSubscriberRequestMessage">
+		<wsdl:part name="part1" element="bizmsg:NewSubscriberRequestMsg" />
+	</wsdl:message>
+	<wsdl:message name="NewSubscriberResultMessage">
+		<wsdl:part name="part1" element="bizmsg:NewSubscriberResultMsg" />
+	</wsdl:message>
+	<wsdl:message name="ChangeMainProdRequestMessage">
+		<wsdl:part name="part1" element="bizmsg:ChangeMainProdRequestMsg" />
+	</wsdl:message>
+	<wsdl:message name="ChangeMainProdResultMessage">
+		<wsdl:part name="part1" element="bizmsg:ChangeMainProdResultMsg" />
+	</wsdl:message>
+	<wsdl:message name="MVPPRequestMessage">
+		<wsdl:part name="parameters" element="bizmsg:MVPPRequestMsg"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="MVPPResponseMessage">
+		<wsdl:part name="parameters" element="bizmsg:MVPPResultMsg"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="MultiSIMRequestMessage">
+		<wsdl:part name="parameters" element="bizmsg:MultiSIMRequestMsg"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="MultiSIMResponseMessage">
+		<wsdl:part name="parameters" element="bizmsg:MultiSIMResultMsg"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="OCSWorkOrderRequestMessage">
+		<wsdl:part name="parameters" element="bizmsg:OCSWorkOrderRequestMsg"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="OCSWorkOrderResponseMessage">
+		<wsdl:part name="parameters" element="bizmsg:OCSWorkOrderResultMsg"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="CRMInterfaceServicePortType">
+		<wsdl:operation name="ChangeAppendantProduct">
+			<wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:ChangeAppendantProductRequestMessage" wsaw:Action="ChangeAppendantProduct" />
+			<wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:ChangeAppendantProductResultMessage"
+				wsaw:Action="http://www.esb.com/crm/crmservice/biz/CBSInterfaceBusinessMgr/ChangeAppendantProductResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="DeleteSubscriber">
+			<wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:DeleteSubscriberRequestMessage" wsaw:Action="DeleteSubscriber" />
+			<wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:DeleteSubscriberResultMessage"
+				wsaw:Action="http://www.esb.com/crm/crmservice/biz/CBSInterfaceBusinessMgr/DeleteSubscriberResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="NewSubscriber">
+			<wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:NewSubscriberRequestMessage" wsaw:Action="NewSubscriber" />
+			<wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:NewSubscriberResultMessage"
+				wsaw:Action="http://www.esb.com/crm/crmservice/biz/CBSInterfaceBusinessMgr/NewSubscriberResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="ChangeMainProd">
+			<wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:ChangeMainProdRequestMessage" wsaw:Action="ChangeMainProd" />
+			<wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:ChangeMainProdResultMessage"
+				wsaw:Action="http://www.esb.com/crm/crmservice/biz/CBSInterfaceBusinessMgr/ChangeMainProdResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="MVPP">
+			<wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:MVPPRequestMessage" wsaw:Action="MVPP" />
+			<wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:MVPPResponseMessage"
+				wsaw:Action="http://www.esb.com/crm/crmservice/biz/CBSInterfaceBusinessMgr/MVPPResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="MultiSIM">
+			<wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:MultiSIMRequestMessage" wsaw:Action="MultiSIM" />
+			<wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:MultiSIMResponseMessage"
+				wsaw:Action="http://www.esb.com/crm/crmservice/biz/CBSInterfaceBusinessMgr/MultiSIMResponse" />
+		</wsdl:operation>
+		<wsdl:operation name="OCSWorkOrder">
+			<wsdl:input xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:OCSWorkOrderRequestMessage" wsaw:Action="OCSWorkOrder" />
+			<wsdl:output xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+				message="business:OCSWorkOrderResponseMessage"
+				wsaw:Action="http://www.esb.com/crm/crmservice/biz/CBSInterfaceBusinessMgr/OCSWorkOrderResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="CRMInterfaceServiceSOAPBinding" type="business:CRMInterfaceServicePortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="ChangeAppendantProduct">
+			<soap:operation soapAction="ChangeAppendantProduct"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteSubscriber">
+			<soap:operation soapAction="DeleteSubscriber" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="NewSubscriber">
+			<soap:operation soapAction="NewSubscriber" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ChangeMainProd">
+			<soap:operation soapAction="ChangeMainProd" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="MVPP">
+			<soap:operation soapAction="MVPP" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="MultiSIM">
+			<soap:operation soapAction="MultiSIM" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="OCSWorkOrder">
+			<soap:operation soapAction="OCSWorkOrder" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="CRMInterfaceService">
+		<wsdl:port name="CRMInterfaceServiceSOAPport_http" binding="business:CRMInterfaceServiceSOAPBinding">
+			<soap:address location="https://10.130.46.6:8585/CRMInterfaceService/CRMInterfaceService_Endpoint" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

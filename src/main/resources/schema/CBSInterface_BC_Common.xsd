@@ -1,0 +1,866 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:header="http://www.huawei.com/bme/cbsinterface/header">
+  <xs:simpleType name="DateTime">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="14"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="SimpleProperty">
+    <xs:sequence>
+      <xs:element name="Code" type="xs:string">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Value" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Address">
+    <xs:sequence>
+      <xs:element name="AddressKey" type="xs:string"/>
+      <xs:element name="Address1" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address2" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address3" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address4" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address5" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address6" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address7" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address8" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address9" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address10" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address11" type="xs:string" minOccurs="0"/>
+      <xs:element name="Address12" type="xs:string" minOccurs="0"/>
+      <xs:element name="PostCode" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Contact">
+    <xs:sequence>
+      <xs:element name="Title" type="xs:string" minOccurs="0"/>
+      <xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+      <xs:element name="MiddleName" type="xs:string" minOccurs="0"/>
+      <xs:element name="LastName" type="xs:string" minOccurs="0"/>
+      <xs:element name="AddressKey" type="xs:string" minOccurs="0"/>
+      <xs:element name="OfficePhone" type="xs:string" minOccurs="0"/>
+      <xs:element name="HomePhone" type="xs:string" minOccurs="0"/>
+      <xs:element name="MobilePhone" type="xs:string" minOccurs="0"/>
+      <xs:element name="Email" type="xs:string" minOccurs="0"/>
+      <xs:element name="Fax" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SalesInfo">
+    <xs:sequence>
+      <xs:element name="SalesChannelID" type="xs:string" minOccurs="0"/>
+      <xs:element name="SalesID" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EffectMode">
+    <xs:sequence>
+      <xs:element name="Mode" type="xs:string"/>
+      <xs:element name="Time" type="bccommon:DateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ActiveMode">
+    <xs:sequence>
+      <xs:element name="Mode" type="xs:string" minOccurs="0"/>
+      <xs:choice minOccurs="0">
+        <xs:element name="ActiveTime" type="bccommon:DateTime"/>
+        <xs:element name="ActiveTimeLimit" type="bccommon:DateTime">
+          <xs:annotation>
+            <xs:documentation>It means the offering should be activated before this time.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Tax">
+    <xs:sequence>
+      <xs:element name="TaxCode" type="xs:string"/>
+      <xs:element name="TaxAmount" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BalanceChgInfo">
+    <xs:sequence>
+      <xs:element name="BalanceType" type="xs:string"/>
+      <xs:element name="BalanceID" type="xs:long" minOccurs="0"/>
+      <xs:element name="BalanceTypeName" type="xs:string" minOccurs="0"/>
+      <xs:element name="OldBalanceAmt" type="xs:long"/>
+      <xs:element name="NewBalanceAmt" type="xs:long"/>
+      <xs:element name="CurrencyID" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FreeUnitChgInfo">
+    <xs:sequence>
+      <xs:element name="FreeUnitInstanceID" type="xs:long" minOccurs="0"/>
+      <xs:element name="FreeUnitType" type="xs:string"/>
+      <xs:element name="FreeUnitTypeName" type="xs:string" minOccurs="0"/>
+      <xs:element name="MeasureUnit" type="xs:integer"/>
+      <xs:element name="MeasureUnitName" type="xs:string" minOccurs="0"/>
+      <xs:element name="OldAmt" type="xs:long"/>
+      <xs:element name="NewAmt" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>客户</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="CustAccessCode">
+    <xs:choice>
+      <xs:element name="PrimaryIdentity" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Identify the Customer which the Primary Identity belongs to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustomerKey" type="xs:string"/>
+      <xs:element name="CustomerCode" type="xs:string"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="CustInfo">
+    <xs:sequence>
+      <xs:element name="CustType" type="xs:string" minOccurs="0"/>
+      <xs:element name="CustNodeType" type="xs:string" minOccurs="0"/>
+      <xs:element name="CustClass" type="xs:string" minOccurs="0"/>
+      <xs:element name="CustCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="ParentCustKey" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If this customer node has a parent node in the customer hierarchy, this field indicates the customer key of parent node.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustBasicInfo" type="bccommon:CustBasicInfo" minOccurs="0"/>
+      <xs:element name="NoticeSuppress" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ChannelType" type="xs:string"/>
+            <xs:element name="NoticeType" type="xs:string"/>
+            <xs:element name="SubNoticeType" type="xs:string" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CustBasicInfo">
+    <xs:sequence>
+      <xs:element name="CustSegment" type="xs:string" minOccurs="0"/>
+      <xs:element name="DFTPwd" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default password of this customer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DFTWrittenLang" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default written language code of this customer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DFTIVRLang" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default phonetic language code of this customer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DFTBillCycleType" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default billing cycle type of this customer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DFTCurrencyID" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default currency code of this customer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustLevel" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="CustLoyalty" type="xs:string" minOccurs="0"/>
+      <xs:element name="DunningFlag" type="xs:string" minOccurs="0"/>
+      <xs:element name="CustProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="IndividualInfo">
+    <xs:sequence>
+      <xs:element name="IDType" type="xs:string" nillable="true" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is identification type of a person. 
+For example: ID Card Number, Social Security Nubmer......</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IDNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="IDValidity" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="Title" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="FirstName" type="xs:string" minOccurs="0"/>
+      <xs:element name="MiddleName" type="xs:string" minOccurs="0"/>
+      <xs:element name="LastName" type="xs:string" minOccurs="0"/>
+      <xs:element name="HomeAddressKey" type="xs:string" minOccurs="0"/>
+      <xs:element name="Gender" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="Nationality" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="Race" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="Birthday" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="NativePlace" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="MaritalStatus" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="Education" type="xs:string" nillable="true" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the education level code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Occupation" type="xs:string" nillable="true" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the occupation code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Salary" type="xs:string" nillable="true" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the salary level code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OfficePhone" type="xs:string" minOccurs="0"/>
+      <xs:element name="HomePhone" type="xs:string" minOccurs="0"/>
+      <xs:element name="MobilePhone" type="xs:string" minOccurs="0"/>
+      <xs:element name="Fax" type="xs:string" minOccurs="0"/>
+      <xs:element name="Email" type="xs:string" minOccurs="0"/>
+      <xs:element name="IndividualProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OrgInfo">
+    <xs:sequence>
+      <xs:element name="IDType" type="xs:string" nillable="true" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is identification type of a Org. For example: Business Register Number......</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IDNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="IDValidity" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="OrgType" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrgName" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrgShortName" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrgLevel" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrgAddressKey" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrgSize" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the size code of a organization.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Industry" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the industry code the organization belongs to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubIndustry" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the sub-industry code the organization belongs to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OrgPhoneNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrgFaxNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrgEmail" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrgWebSite" type="xs:string" minOccurs="0"/>
+      <xs:element name="OrgProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>账户</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="AcctAccessCode">
+    <xs:choice>
+      <xs:element name="PrimaryIdentity" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Identify the default Account which the Primary Identity Use.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AccountKey" type="xs:string"/>
+      <xs:element name="AccountCode" type="xs:string"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="AccountInfo">
+    <xs:sequence>
+      <xs:element name="AcctCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="UserCustomerKey" type="xs:string" minOccurs="0"/>
+      <xs:element name="ParentAcctKey" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>There is a account hierarchy in the system. If a account node has a parent node in the account hierarchy, this field is the parent account key.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AcctBasicInfo" type="bccommon:AccountBasicInfo" minOccurs="0"/>
+      <xs:element name="BillCycleType" type="xs:string" minOccurs="0"/>
+      <xs:element name="AcctType" type="xs:string" minOccurs="0"/>
+      <xs:element name="PaymentType" type="xs:string" minOccurs="0"/>
+      <xs:element name="AcctClass" type="xs:string" minOccurs="0"/>
+      <xs:element name="CurrencyID" type="xs:integer" minOccurs="0"/>
+      <xs:element name="InitBalance" type="xs:long" minOccurs="0"/>
+      <xs:element name="CreditLimit" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="LimitType" type="xs:string" minOccurs="0"/>
+            <xs:element name="LimitValue" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="AcctPayMethod" type="xs:string" minOccurs="0"/>
+      <xs:element name="AutoPayChannel" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="AutoPayChannelKey" type="xs:string"/>
+            <xs:element name="AutoPayChannelInfo">
+              <xs:complexType>
+                <xs:complexContent>
+                  <xs:extension base="bccommon:AutoPayChannelInfo"/>
+                </xs:complexContent>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TaxException">
+    <xs:sequence>
+      <xs:element name="TaxChargeCode" type="xs:integer"/>
+      <xs:element name="ExceptionRate" type="xs:integer"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AccountBasicInfo">
+    <xs:sequence>
+      <xs:element name="AcctName" type="xs:string" minOccurs="0"/>
+      <xs:element name="BillLang" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is language code of bill.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DunningFlag" type="xs:string" minOccurs="0"/>
+      <xs:element name="LateFeeChargeable" type="xs:string" minOccurs="0"/>
+      <xs:element name="RedlistFlag" type="xs:string" minOccurs="0"/>
+      <xs:element name="ContactInfo" type="bccommon:Contact" minOccurs="0"/>
+      <xs:element name="FreeBillMedium" type="bccommon:FreeBillMedium" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="AcctProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AutoPaymentPlan">
+    <xs:sequence>
+      <xs:element name="AutoPayType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>B: billing cycle pay
+R: real time pay(Credit Control Trigger)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PaymentObjectType" type="xs:string"/>
+      <xs:element name="PaymentObjectID" type="xs:string"/>
+      <xs:element name="PaymentDate" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="Amount" type="xs:long" minOccurs="0"/>
+      <xs:element name="LimitTimes" type="xs:integer" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AutoPayChannelInfo">
+    <xs:sequence>
+      <xs:element name="BankCode" type="xs:string"/>
+      <xs:element name="BankBranchCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="AcctType" type="xs:string"/>
+      <xs:element name="CreditCardType" type="xs:string" minOccurs="0"/>
+      <xs:element name="AcctNo" type="xs:string"/>
+      <xs:element name="AcctName" type="xs:string"/>
+      <xs:element name="CVVNumber" type="xs:string" minOccurs="0"/>
+      <xs:element name="ExpDate" type="xs:string" minOccurs="0"/>
+      <xs:element name="Priority" type="xs:integer" minOccurs="0"/>
+      <xs:element name="ChargeCode" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="PaymentPlan" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="AutoPayType" type="xs:string"/>
+            <xs:choice>
+              <xs:element name="BillCycleSchema" minOccurs="0">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="AutoPayDate" type="xs:string" minOccurs="0"/>
+                    <xs:element name="AutoPayMaxAmt" type="xs:long" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="TimeSchema">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="PeriodType" type="xs:string"/>
+                    <xs:element name="AutoRechargeDate" type="xs:string" minOccurs="0"/>
+                    <xs:element name="AutoRechargeAmt" type="xs:long"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="LowBalanceSchema">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="BalanceThreshold" type="xs:long"/>
+                    <xs:element name="AutoRechargeAmt" type="xs:long"/>
+                    <xs:element name="ControlPeriodType" type="xs:string" minOccurs="0"/>
+                    <xs:element name="MaxTimes" type="xs:integer" minOccurs="0"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:choice>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PayOwner">
+    <xs:sequence>
+      <xs:element name="OwnerType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>S: payment to subscriber
+G: payment to subscriber group   A: payment to account</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OwnerKey" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FreeBillMedium">
+    <xs:sequence>
+      <xs:element name="BMCode" type="xs:string"/>
+      <xs:element name="BMType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PaymentLimit">
+    <xs:sequence>
+      <xs:element name="LimitCycleType" type="xs:string"/>
+      <xs:element name="Limit">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="LimitType" type="xs:string"/>
+            <xs:element name="LimitValueType" type="xs:string"/>
+            <xs:element name="LimitMeasureUnit" type="xs:integer" minOccurs="0"/>
+            <xs:element name="LimitValue" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="LimitRule" type="xs:string" minOccurs="0"/>
+      <xs:element name="CBonusFlag" type="xs:string" minOccurs="0"/>
+      <xs:element name="CurrencyID" type="xs:integer" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PayRelExtRule">
+    <xs:sequence>
+      <xs:element name="ChargeCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="OfferingKey" type="bccommon:OfferingKey" minOccurs="0"/>
+      <xs:element name="ControlRule" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>用户或用户群</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="SubAccessCode">
+    <xs:choice>
+      <xs:element name="PrimaryIdentity" type="xs:string"/>
+      <xs:element name="SubscriberKey" type="xs:string"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="SubGroupAccessCode">
+    <xs:choice>
+      <xs:element name="SubGroupKey" type="xs:string"/>
+      <xs:element name="SubGroupCode" type="xs:string"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="SubIdentity">
+    <xs:sequence>
+      <xs:element name="SubIdentityType" type="xs:string"/>
+      <xs:element name="SubIdentity" type="xs:string"/>
+      <xs:element name="PrimaryFlag" type="xs:string"/>
+      <xs:element name="RelatedSubIdentity" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Subscriber">
+    <xs:sequence>
+      <xs:element name="SubBasicInfo" type="bccommon:SubBasicInfo" minOccurs="0"/>
+      <xs:element name="UserCustomerKey" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is actual user customer key of subscriber if the actual user is not same as register customer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubIdentity" type="bccommon:SubIdentity" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>It indicates all the subscriber Identities of subscriber. For example: MSISDN and IMSI are identities for GSM subscriber.
+For each subscriber, there is one and only one primary identity. For example: MSISDN is the primary identity of GSM subscriber.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Brand" type="xs:string" minOccurs="0"/>
+      <xs:element name="SubClass" type="xs:string" minOccurs="0"/>
+      <xs:element name="NetworkType" type="xs:string" minOccurs="0"/>
+      <xs:element name="SubPassword" type="xs:string" minOccurs="0"/>
+      <xs:element name="Status" type="xs:string" minOccurs="0"/>
+      <xs:element name="ActiveTimeLimit" type="bccommon:DateTime" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the time deadline for IDLE subscriber to active the subscriber.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ConsumptionLimit" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="LimitType" type="xs:string"/>
+            <xs:element name="UnitType" type="xs:string"/>
+            <xs:choice>
+              <xs:sequence>
+                <xs:element name="MesureType" type="xs:integer"/>
+                <xs:element name="MesureID" type="xs:integer"/>
+                <xs:element name="LimitValue" type="xs:long"/>
+              </xs:sequence>
+              <xs:sequence>
+                <xs:element name="CurrencyID" type="xs:integer"/>
+                <xs:element name="LimitValue" type="xs:long"/>
+              </xs:sequence>
+            </xs:choice>
+            <xs:element name="LimitParam" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ParamCode" type="xs:string"/>
+                  <xs:element name="ParamValue" type="xs:long"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SubBasicInfo">
+    <xs:sequence>
+      <xs:element name="WrittenLang" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the written language code of subscriber.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="IVRLang" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the phonetic language code of subscriber.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubLevel" type="xs:string" minOccurs="0"/>
+      <xs:element name="DunningFlag" type="xs:string" minOccurs="0"/>
+      <xs:element name="SubProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SubGroup">
+    <xs:sequence>
+      <xs:element name="SubGroupClass" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>For example:
+Formal Subscriber Group
+Test Subscriber Group</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SubGroupCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="UserCustomerKey" type="xs:string" minOccurs="0"/>
+      <xs:element name="PGroupKey" type="xs:string" minOccurs="0"/>
+      <xs:element name="Password" type="xs:string" minOccurs="0"/>
+      <xs:element name="SubGroupBasicInfo" type="bccommon:SubGroupBasicInfo" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SubGroupBasicInfo">
+    <xs:sequence>
+      <xs:element name="SubGroupName" type="xs:string" minOccurs="0"/>
+      <xs:element name="SubGroupProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SubGroupMember">
+    <xs:sequence>
+      <xs:element name="MemberShortNo" type="xs:string" minOccurs="0"/>
+      <xs:element name="SubGrpMemberInfo" type="bccommon:SubGroupMemberInfo" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SubGroupMemberInfo">
+    <xs:sequence>
+      <xs:element name="MemberTypeCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="MemberProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SubRelationInfo">
+    <xs:sequence>
+      <xs:element name="SubscriberKey" type="xs:string"/>
+      <xs:element name="RelType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>For example:
+Presenter
+Master</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RscRelation">
+    <xs:sequence>
+      <xs:element name="RelationObjType" type="xs:string"/>
+      <xs:element name="RelationDestIdentify">
+        <xs:complexType>
+          <xs:choice>
+            <xs:element name="SubIdentify" type="bccommon:SubAccessCode"/>
+            <xs:element name="SubGroupAccessCode" type="bccommon:SubGroupAccessCode"/>
+          </xs:choice>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OfferingKey" type="bccommon:OfferingKey" minOccurs="0"/>
+      <xs:element name="ShareRule" type="xs:string" minOccurs="0"/>
+      <xs:element name="ShareLimit" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="LimitCycleType" type="xs:string"/>
+            <xs:element name="LimitValue" type="xs:long"/>
+            <xs:element name="MeasureUnit" type="xs:integer"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="StartTime" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="EndTime" type="bccommon:DateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>订购实例</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="OfferingKey">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name="OfferingID" type="xs:integer" nillable="true">
+          <xs:annotation>
+            <xs:documentation>It is the offering ID which is defined in PC module.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="OfferingCode" type="xs:string"/>
+      </xs:choice>
+      <xs:element name="PurchaseSeq" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is the purchase seqence of this subscription. If an offering can be purchased more than once, system use this field to distinguish different offering subscription instance.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InstProperty">
+    <xs:sequence>
+      <xs:element name="PropCode" type="xs:string"/>
+      <xs:element name="PropType" type="xs:string"/>
+      <xs:choice>
+        <xs:element name="Value" type="xs:string"/>
+        <xs:element name="SubPropInst" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SubPropCode" type="xs:string"/>
+              <xs:element name="Value" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProductInst">
+    <xs:sequence>
+      <xs:element name="ProductID" type="xs:long">
+        <xs:annotation>
+          <xs:documentation>It is product ID which is defined in PC module.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PrimaryFlag" type="xs:string"/>
+      <xs:element name="PackageFlag" type="xs:string"/>
+      <xs:element name="ParentProdID" type="xs:integer" minOccurs="0"/>
+      <xs:element name="NetworkType" type="xs:string" minOccurs="0"/>
+      <xs:element name="ProductType" type="xs:string" minOccurs="0"/>
+      <xs:element name="PInstProperty" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="bccommon:InstProperty">
+              <xs:sequence>
+                <xs:element name="EffectiveTime" type="bccommon:DateTime" minOccurs="0"/>
+                <xs:element name="ExpirationTime" type="bccommon:DateTime" minOccurs="0"/>
+              </xs:sequence>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="POfferingInst">
+    <xs:sequence>
+      <xs:element name="OfferingKey" type="bccommon:OfferingKey" nillable="true"/>
+      <xs:element name="BundledFlag" type="xs:string" minOccurs="0"/>
+      <xs:element name="OfferingClass" type="xs:string" minOccurs="0"/>
+      <xs:element name="ParentOfferingKey" type="bccommon:OfferingKey" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If this offering is a member of a bundled offering, this field indicates the corresponding bundled offering subscription instance key.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Status" type="xs:string" minOccurs="0"/>
+      <xs:element name="TrialStartTime" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="TrialEndTime" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="ProductInst" type="bccommon:ProductInst" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="OfferingInstProperty" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="bccommon:InstProperty">
+              <xs:sequence>
+                <xs:element name="EffectiveTime" type="bccommon:DateTime" minOccurs="0"/>
+                <xs:element name="ExpirationTime" type="bccommon:DateTime" minOccurs="0"/>
+              </xs:sequence>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OfferingInst">
+    <xs:sequence>
+      <xs:element name="OfferingKey" type="bccommon:OfferingKey" nillable="true"/>
+      <xs:element name="BundledFlag" type="xs:string" minOccurs="0"/>
+      <xs:element name="OfferingClass" type="xs:string" minOccurs="0"/>
+      <xs:element name="ParentOfferingKey" type="bccommon:OfferingKey" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If this offering is a member of a bundled offering, this field indicates the corresponding bundled offering subscription instance key.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RelGOfferingKey" type="bccommon:OfferingKey" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>If this offering is group member offering, this field indicates the related offering subscription key on group level if it is existed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Status" type="xs:string" minOccurs="0"/>
+      <xs:element name="TrialStartTime" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="TrialEndTime" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="ProductInst" type="bccommon:ProductInst" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="OInstProperty" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:complexContent>
+            <xs:extension base="bccommon:InstProperty">
+              <xs:sequence>
+                <xs:element name="EffectiveTime" type="bccommon:DateTime" minOccurs="0"/>
+                <xs:element name="ExpirationTime" type="bccommon:DateTime" minOccurs="0"/>
+              </xs:sequence>
+            </xs:extension>
+          </xs:complexContent>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OfferingOwner">
+    <xs:sequence>
+      <xs:element name="OwnerType" type="xs:string"/>
+      <xs:element name="OwnerKey" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OfferingExpireMode">
+    <xs:sequence>
+      <xs:element name="Mode" type="xs:string"/>
+      <xs:element name="Time" type="bccommon:DateTime" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>Statement</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="Statement">
+    <xs:sequence>
+      <xs:element name="SmtKey" type="xs:string"/>
+      <xs:element name="InvoiceType" type="xs:integer"/>
+      <xs:element name="SmtClass" type="xs:string"/>
+      <xs:element name="SmtInfo" type="bccommon:StatementInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StatementInfo">
+    <xs:sequence>
+      <xs:element name="ContactInfo" type="bccommon:Contact" minOccurs="0"/>
+      <xs:element name="SmtMedium" type="bccommon:StatementMedium" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="SmtLang" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StatementScenario">
+    <xs:choice>
+      <xs:element name="AccountKey" type="xs:string" maxOccurs="unbounded"/>
+      <xs:element name="SubscriberKey" type="xs:string" maxOccurs="unbounded"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="StatementMedium">
+    <xs:sequence>
+      <xs:element name="BMCode" type="xs:string"/>
+      <xs:element name="BMType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>批量</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="CustomerForBatch">
+    <xs:sequence>
+      <xs:element name="CustType" type="xs:string" minOccurs="0"/>
+      <xs:element name="CustSegment" type="xs:string" minOccurs="0"/>
+      <xs:element name="DFTPwd" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default password of this customer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DFTWrittenLang" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default written language code of this customer.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DFTIVRLang" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default phonetic language code of this customer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DFTBillCycleType" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default billing cycle type of this customer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DFTCurrencyID" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The default currency code of this customer</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CustLevel" type="xs:string" nillable="true" minOccurs="0"/>
+      <xs:element name="CustLoyalty" type="xs:string" minOccurs="0"/>
+      <xs:element name="DunningFlag" type="xs:string" minOccurs="0"/>
+      <xs:element name="CustProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AccountForBatch">
+    <xs:sequence>
+      <xs:element name="BillCycleType" type="xs:string" minOccurs="0"/>
+      <xs:element name="PaymentType" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>For example:
+Prepaid                                 Postpaid</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CurrencyID" type="xs:integer" minOccurs="0"/>
+      <xs:element name="BillLang" type="xs:string" minOccurs="0"/>
+      <xs:element name="DunningFlag" type="xs:string" minOccurs="0"/>
+      <xs:element name="LateFeeChargeable" type="xs:string" minOccurs="0"/>
+      <xs:element name="InitBalance" type="xs:long" minOccurs="0"/>
+      <xs:element name="CreditLimit" minOccurs="0" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="LimitType" type="xs:string" minOccurs="0"/>
+            <xs:element name="LimitValue" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="FreeBillMedium" type="bccommon:FreeBillMedium" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="AcctProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SubscriberForBatch">
+    <xs:sequence>
+      <xs:element name="SubBasicInfo" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="WrittenLang" type="xs:string"/>
+            <xs:element name="IVRLang" type="xs:string"/>
+            <xs:element name="SubLevel" type="xs:string" minOccurs="0"/>
+            <xs:element name="DunningFlag" type="xs:string" minOccurs="0"/>
+            <xs:element name="SubProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Brand" type="xs:string" minOccurs="0"/>
+      <xs:element name="NetworkType" type="xs:string" minOccurs="0"/>
+      <xs:element name="Status" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PaymentMode" type="xs:string" nillable="true"/>
+      <xs:element name="SubPassword" type="xs:string" minOccurs="0"/>
+      <xs:element name="ActiveTimeLimit" type="bccommon:DateTime" minOccurs="0"/>
+      <xs:element name="PrimaryIdentityType" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

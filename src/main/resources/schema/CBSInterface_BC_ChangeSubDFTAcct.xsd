@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="ChangeSubDFTAcctRequest">
+		<xs:sequence>
+			<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+			<xs:element name="SubDFTAccount">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="OldDFTAcct" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PrePaidAcctKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="PostPaidAcctKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="DFTAcctKey" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="NewDFTAcct">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PrePaidAcctKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="PostPaidAcctKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="DFTAcctKey" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DFTPayRelation" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DelPayRelation" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PayRelationKey" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="AddPayRelation" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PayRelationKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="AcctKey" type="xs:string"/>
+									<xs:element name="Priority" type="xs:integer" minOccurs="0"/>
+									<xs:element name="PayRelExtRule" type="bccommon:PayRelExtRule" minOccurs="0"/>
+									<xs:element name="OnlyPayRelFlag" type="xs:string" minOccurs="0"/>
+									<xs:element name="PaymentLimitKey" type="xs:string" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="PaymentLimit" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PaymentLimitKey" type="xs:string"/>
+									<xs:element name="PaymentLimitInfo">
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension base="bccommon:PaymentLimit"/>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="EffectiveTime" type="bccommon:EffectMode"/>
+			<xs:element name="ControlProperty" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="BatchCreateSubscriberRequest">
+		<xs:sequence>
+			<xs:element name="Customer" type="bccommon:CustomerForBatch" minOccurs="0"/>
+			<xs:element name="Account" type="bccommon:AccountForBatch" minOccurs="0" maxOccurs="2"/>
+			<xs:element name="Subscriber">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bccommon:SubscriberForBatch"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PrimaryOffering" type="bccommon:POfferingInst"/>
+			<xs:element name="SupplementaryOffering" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bccommon:OfferingInst">
+							<xs:sequence>
+								<xs:element name="OwnerType" type="xs:string" minOccurs="0"/>
+								<xs:element name="AcctPaymentMode" type="xs:string" minOccurs="0"/>
+								<xs:element name="EffectiveTime" type="bccommon:EffectMode"/>
+								<xs:element name="ExpirationTime" type="bccommon:DateTime"/>
+								<xs:element name="ActivationTime" type="bccommon:ActiveMode" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SalesInfo" type="bccommon:SalesInfo" minOccurs="0"/>
+			<xs:element name="FileName" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

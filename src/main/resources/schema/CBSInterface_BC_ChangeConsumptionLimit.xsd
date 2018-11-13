@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon"
+		schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="ChangeConsumptionLimitRequest">
+		<xs:sequence>
+			<xs:element name="LimitObj">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+						<xs:element name="CustAccessCode" type="bccommon:CustAccessCode"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+			<xs:choice>
+				<xs:element name="AddLimit" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="LimitType" type="xs:string"/>
+							<xs:element name="UnitType" type="xs:string"/>
+							<xs:choice>
+								<xs:sequence>
+									<xs:element name="MesureType" type="xs:integer"/>
+									<xs:element name="MesureID" type="xs:integer"/>
+									<xs:element name="LimitValue" type="xs:long"/>
+								</xs:sequence>
+								<xs:sequence>
+									<xs:element name="CurrencyID" type="xs:integer"/>
+									<xs:element name="LimitValue" type="xs:long"/>
+								</xs:sequence>
+							</xs:choice>
+							<xs:element name="LimitParam" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="ParamCode" type="xs:string"/>
+										<xs:element name="ParamValue" type="xs:long"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element minOccurs="0" name="EffectiveTime" type="bccommon:DateTime"/>
+							<xs:element minOccurs="0" name="ExpirationTime" type="bccommon:DateTime"
+							/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="DelLimit" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="LimitType" type="xs:string"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="ModifyLimit" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="LimitType" type="xs:string"/>
+							<xs:element name="OldAmount" type="xs:long" minOccurs="0"/>
+							<xs:element name="NewAmount" type="xs:long" minOccurs="0"/>
+							<xs:element name="LimitParam" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="AddLimitParam" minOccurs="0"
+											maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+												<xs:element name="ParamCode" type="xs:string"/>
+												<xs:element name="ParamValue" type="xs:long"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="DelLimitParam" minOccurs="0"
+											maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+												<xs:element name="ParamCode" type="xs:string"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="ModifyLimitParam" minOccurs="0"
+											maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+												<xs:element name="ParamCode" type="xs:string"/>
+												<xs:element name="OldParamValue" type="xs:long"/>
+												<xs:element name="NewParamValue" type="xs:long"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:choice>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

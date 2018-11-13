@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any)--><xs:schema targetNamespace="http://www.huawei.com/bme/cbsinterface/cbscommon" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:cbscommon="http://www.huawei.com/bme/cbsinterface/cbscommon" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:annotation>
+    <xs:documentation>common structure of header</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="SecurityInfo">
+    <xs:sequence>
+      <xs:element name="LoginSystemCode" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>It is request system code which is defined in CBS.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Password" type="xs:string"/>
+      <xs:element name="RemoteIP" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OperatorInfo">
+    <xs:sequence>
+      <xs:element name="OperatorID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The operator ID which is defined in both CBS system and request system.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ChannelID" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is channel ID which the operator belongs to</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OwnershipInfo">
+    <xs:sequence>
+      <xs:element name="BEID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The Business Entity ID which the customer belongs to</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BRID" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The Business Region ID which the customer belongs to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>message header</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="RequestHeader">
+    <xs:sequence>
+      <xs:element name="Version" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Version ID of CBS interface</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BusinessCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>Business operation code from request system (For example: function code in CRM system).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MessageSeq" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Unique sequence number for one message. If request system resend a message, this field should be unchanged.
+For example: CRM can use "OrderID + OrderNodeID" as this field.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OwnershipInfo" type="cbscommon:OwnershipInfo" minOccurs="0"/>
+      <xs:element name="AccessSecurity" type="cbscommon:SecurityInfo">
+        <xs:annotation>
+          <xs:documentation>It is for security authentication for request system.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OperatorInfo" type="cbscommon:OperatorInfo" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It indicates the operator information of the request.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AccessMode" type="xs:string" minOccurs="0"/>
+      <xs:element name="MsgLanguageCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is used to specify the language of description in returen message.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TimeFormat" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="TimeType" type="xs:string"/>
+            <xs:element name="TimeZoneID" type="xs:string" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="requestingSystem" type="cbscommon:requestingSystem" minOccurs="0"/>
+      <xs:element ref="cbscommon:ThirdPartyID" minOccurs="0"/>
+      <!--Mao-20170322 <xs:element name="OrderID" type="xs:string" minOccurs="0"/>-->
+      <xs:element name="OrderID" type="xs:string"/>
+      <xs:element name="AdditionalProperty" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Reserved for future extention</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Code" type="xs:string">
+              <xs:annotation>
+                <xs:documentation/>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="Value" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ResultHeader">
+    <xs:sequence>
+      <xs:element name="Version" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Version ID of CBS interface</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ResultCode" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>0: success                              Other values: failure code</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MsgLanguageCode" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>It is used to specify the language of description in returen message.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ResultDesc" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The brief description of result code.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="requestingSystem" type="cbscommon:requestingSystem" minOccurs="0"/>
+      <xs:element ref="cbscommon:ThirdPartyID" minOccurs="0"/>
+      <xs:element name="AdditionalProperty" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>Reserved for future extention</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Code" type="xs:string">
+              <xs:annotation>
+                <xs:documentation/>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="Value" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="requestingSystem">
+    <xs:sequence>
+      <xs:element name="correlationID" type="xs:string" minOccurs="0"/>
+      <xs:element name="requestingApplicationName" type="xs:string" minOccurs="0"/>
+      <xs:element name="requestingServer" type="xs:string" minOccurs="0"/>
+      <xs:element name="serviceContext" type="cbscommon:serviceContext" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="serviceContext">
+    <xs:sequence>
+      <xs:element name="businessScenario" type="xs:string" minOccurs="0"/>
+      <xs:element name="serviceOperation" type="xs:string" minOccurs="0"/>
+      <xs:element name="serviceDescription" type="xs:string" minOccurs="0"/>
+      <xs:element name="versionNumber" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ThirdPartyID" type="xs:int"/>
+</xs:schema>

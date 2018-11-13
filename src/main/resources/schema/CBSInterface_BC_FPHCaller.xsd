@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:simpleType name="FPHCallerOperatorType">
+		<xs:annotation>
+			<xs:documentation>Add/Delete</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="FphCaller">
+		<xs:all>
+			<xs:element name="CallingNumber" type="xs:string" minOccurs="0"/>
+			<xs:element name="SerialNo" type="xs:int" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="ManFphCallerRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="OperationType" type="FPHCallerOperatorType"/>
+			<xs:element name="FphCaller" type="FphCaller" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ListType" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryFphCallerRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="ListType" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryFphCallerResult">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="FphCaller" type="FphCaller" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

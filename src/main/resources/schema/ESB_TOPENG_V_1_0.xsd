@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	 xmlns="http://www.accenture.com/schemas/TOPENG/ESB_TOPENG_V_1_0"
+	 xmlns:esbrs="http://www.accenture.com/schemas/TOPENG/ESB_RequestingSystem_V_1_0"
+	 targetNamespace="http://www.accenture.com/schemas/TOPENG/ESB_TOPENG_V_1_0"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.accenture.com/schemas/TOPENG/ESB_RequestingSystem_V_1_0" schemaLocation="ESB_RequestingSystem_V_1_0.xsd"/>
+	<xsd:element name="MMLCommandRequest">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="RequestHeader" type="esbrs:RequestHeader"/>
+				<xsd:element name="MMLCommandDet" type="MMLCommandType"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="MMLCommandType">
+		<xsd:sequence>
+		<xsd:element name="OperationType" type="xsd:string"/>
+			<xsd:element name="ExtParamList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>All the parameters required for the execution of the command will be provided in this complex attribute in the name-value pair format. For example, if the command requires IMSI as an attribute, then the name will be "IMSI" and value be IMSI value like "444440123456789"</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ParameterInfo" type="AdditionalParam" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="AdditionalParam">
+		<xsd:all>
+			<xsd:element name="Name" type="xsd:string"/>
+			<xsd:element name="Value" type="xsd:string"/>
+			<xsd:element name="DataType" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>The parameter datatype. For example id the parameter is IMSI then datatype will be STRING.The values may be any datatype like string, integer,boolean etc or the value may be also ENUMERATION.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<xsd:complexType name="MMLCommandResponseHeader">
+		<xsd:sequence>
+			<xsd:element name="RequestHeader" type="esbrs:RequestHeader" minOccurs="0"/>
+			<xsd:element name="ResponseDtls" type="ResponseDtlsType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="MMLCommandResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="ResponseHeader" type="MMLCommandResponseHeader"/>
+				<xsd:element name="MMLCommandResDet" type="MMLCommandResDet"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="MMLCommandResDet">
+		<xsd:sequence>
+			<xsd:element name="ResultDetails" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ResponseDtlsType">
+		<xsd:sequence>
+			<xsd:element name="RetCode" type="xsd:string"/>
+			<xsd:element name="RetDesc" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="ChangeRscRelationRequest">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="SubAccessCode">
+					<xs:complexType>
+						<xs:complexContent>
+							<xs:extension base="bccommon:SubAccessCode"/>
+						</xs:complexContent>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SubGroupAccessCode" type="bccommon:SubGroupAccessCode"/>
+			</xs:choice>
+			<xs:element name="RscRelation">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AddRelation" type="bccommon:RscRelation" minOccurs="0"/>
+						<xs:element name="DelRelation" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="RelationObjType" type="xs:string"/>
+									<xs:element name="RelationDestIdentify">
+										<xs:complexType>
+											<xs:choice>
+												<xs:element name="SubIdentify" type="bccommon:SubAccessCode"/>
+											</xs:choice>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="OfferingKey" type="bccommon:OfferingKey" minOccurs="0"/>
+									<xs:element name="ShareRule" type="xs:string" minOccurs="0"/>
+									<xs:element name="StartTime" type="bccommon:DateTime" minOccurs="0"/>
+									<xs:element name="EndTime" type="bccommon:DateTime" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="ModRelation" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="RelationObjType" type="xs:string"/>
+									<xs:element name="RelationDestIdentify">
+										<xs:complexType>
+											<xs:choice>
+												<xs:element name="SubIdentify" type="bccommon:SubAccessCode"/>
+											</xs:choice>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="OldRelation" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="OfferingKey" type="bccommon:OfferingKey" minOccurs="0"/>
+												<xs:element name="ShareRule" type="xs:string" minOccurs="0"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="NewRelation" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="OfferingKey" type="bccommon:OfferingKey" minOccurs="0"/>
+												<xs:element name="ShareRule" type="xs:string" minOccurs="0"/>
+												<xs:element name="ShareLimit" minOccurs="0">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="LimitCycleType" type="xs:string" minOccurs="0"/>
+															<xs:element name="LimitValue" type="xs:long" minOccurs="0"/>
+															<xs:element name="MeasureUnit" type="xs:integer" minOccurs="0"/>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="NewDestIdentify" minOccurs="0">
+										<xs:complexType>
+											<xs:choice>
+												<xs:element name="SubIdentify" type="bccommon:SubAccessCode"/>
+											</xs:choice>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="EffTime" type="bccommon:DateTime" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jaxws:bindings wsdlLocation="../wsdl/TABS_TIBCO_CALLBACK.wsdl"
+    xmlns:jaxws="http://java.sun.com/xml/ns/jaxws"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <jaxws:bindings
+        node="wsdl:definitions/wsdl:types/xs:schema[@targetNamespace='http://ws/its/tabs/webservices/tabs_tibco_callback/TABS_TIBCO_CALLBACK.wsdl/types/']">
+        <jxb:globalBindings xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+            xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <jxb:serializable uid="11082014"/>
+        </jxb:globalBindings>
+    </jaxws:bindings>
+</jaxws:bindings>

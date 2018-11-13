@@ -1,0 +1,1499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:business="http://www.esb.com/bme/cbsinterface/cbs/businessmgr"
+	 targetNamespace="http://www.esb.com/bme/cbsinterface/cbs/businessmgr"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation>The following is single operation.</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="CustomerGrade">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="4050000"/>
+			<xs:enumeration value="4050001"/>
+			<xs:enumeration value="4050002"/>
+			<xs:enumeration value="4050003"/>
+			<xs:enumeration value="4050004"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Gender">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="4050000"/>
+			<xs:enumeration value="4050001"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Paymode">
+		<xs:annotation>
+			<xs:documentation>Prepaid/Postpaid/Hybrid</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ValidMode">
+		<xs:annotation>
+			<xs:documentation>Immediately/Next bill cycle</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="4050000"/>
+			<xs:enumeration value="4050001"/>
+			<xs:enumeration value="4050002"/>
+			<xs:enumeration value="4050003"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OperationType">
+		<xs:annotation>
+			<xs:documentation>Add/Delete/Modify</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="IDType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="4050000"/>
+			<xs:enumeration value="4050001"/>
+			<xs:enumeration value="4050002"/>
+			<xs:enumeration value="4050003"/>
+			<xs:enumeration value="4050004"/>
+			<xs:enumeration value="4059999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ProductOperationType">
+		<xs:annotation>
+			<xs:documentation>Add/Delete/Modify/NoChange</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="ProductOrderInfoType">
+		<xs:all>
+			<xs:element name="ProductID" type="xs:string"/>
+			<xs:element name="ProductOrderKey" type="xs:string"/>
+			<xs:element name="EffectiveDate" type="xs:string"/>
+			<xs:element name="ExpireDate" type="xs:string"/>
+			<xs:element name="AutoType" type="xs:int"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="BalanceRecordType">
+		<xs:all>
+			<xs:element name="BalanceDesc" type="xs:string" minOccurs="0"/>
+			<xs:element name="Balance" type="xs:long"/>
+			<xs:element name="MinMeasureId" type="xs:int" nillable="true" minOccurs="0"/>
+			<xs:element name="UnitType" type="xs:int" nillable="true" minOccurs="0"/>
+			<xs:element name="AccountType" type="xs:string"/>
+			<xs:element name="ExpireTime" type="xs:string"/>
+			<xs:element name="AccountCredit" type="xs:long" nillable="true" minOccurs="0"/>
+			<xs:element name="AccountKey" type="xs:string" nillable="true" minOccurs="0"/>
+			<xs:element name="ProductID" type="xs:string" nillable="true" minOccurs="0"/>
+			<xs:element name="ProductOrderKey" type="xs:string" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="SimpleProperty">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string">
+				<xs:annotation>
+					<xs:documentation> </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Value" type="xs:string" nillable="true"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ComplexProperty">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Service">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string"/>
+			<xs:element name="Status" type="xs:string" minOccurs="0"/>
+			<xs:element name="RegistrationTime" type="xs:string" minOccurs="0"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Product">
+		<xs:sequence>
+			<xs:element name="Id" type="xs:string" nillable="true"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IndividualCustomer">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+			<xs:element name="Code" type="xs:string" minOccurs="0"/>
+			<xs:element name="IdType" type="business:IDType" nillable="true" minOccurs="0"/>
+			<xs:element name="IdCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="Gender" type="business:Gender" minOccurs="0"/>
+			<xs:element name="Birthday" type="xs:string" minOccurs="0"/>
+			<xs:element name="Address" type="xs:string" minOccurs="0"/>
+			<xs:element name="Grade" type="business:CustomerGrade" minOccurs="0"/>
+			<xs:element name="BelToAreaID" type="xs:string" minOccurs="0"/>
+			<xs:element name="Email" type="xs:string" minOccurs="0"/>
+			<xs:element name="ZipCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="RegistrationTime" type="xs:string" minOccurs="0"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="CustomerType" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="Country" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="NativePlace" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="NationType" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="JobType" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="Education" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="CreditGrade" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="CreditAmount" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="CustomerState" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="MaritalStatus" type="xs:integer" nillable="true" minOccurs="0"/>
+			<xs:element name="Skill" type="xs:string" minOccurs="0"/>
+			<xs:element name="SocialNo" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="GroupCustomer">
+		<xs:sequence>
+			<xs:element name="ParentGroupCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="GroupCode" type="xs:string"/>
+			<xs:element name="IdType" type="business:IDType"/>
+			<xs:element name="IdCode" type="xs:string"/>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="Type" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>(* Customer Type *)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BelToAreaID" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>
+            (* Which area customer belongs to *)
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Customer">
+		<xs:choice>
+			<xs:element name="Individual" type="business:IndividualCustomer"/>
+			<xs:element name="Group" type="business:GroupCustomer"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="SubscriberBasic">
+		<xs:sequence>
+			<xs:element name="Code" type="xs:string" minOccurs="0"/>
+			<xs:element name="BrandId" type="xs:string" minOccurs="0"/>
+			<xs:element name="RegistrationTime" type="xs:string" minOccurs="0"/>
+			<xs:element name="Lang" type="xs:string"/>
+			<xs:element name="SMSLang" type="xs:string" minOccurs="0"/>
+			<xs:element name="USSDLang" type="xs:string" minOccurs="0"/>
+			<xs:element name="PaidMode" type="business:Paymode" nillable="true"/>
+			<xs:element name="InitialCredit" minOccurs="0" nillable="true">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="BelToAreaID" type="xs:string" minOccurs="0"/>
+			<xs:element name="MainProductID" type="xs:string" nillable="true"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Subscriber">
+		<xs:complexContent>
+			<xs:extension base="business:SubscriberBasic">
+				<xs:sequence>
+					<xs:element name="IMSI" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="Account">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+			<xs:element name="Code" type="xs:string" minOccurs="0"/>
+			<xs:element name="Address" type="xs:string" nillable="true" minOccurs="0"/>
+			<xs:element name="Title" type="xs:string" minOccurs="0"/>
+			<xs:element name="BillcycleType" type="xs:string" nillable="true" minOccurs="0"/>
+			<xs:element name="RelationCustomer" type="xs:int" minOccurs="0"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BatchCommon"/>
+	<xs:complexType name="Common">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryBasicInfoRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="QueryType">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+						<xs:enumeration value="3"/>
+						<xs:enumeration value="4"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryBasicInfoResult">
+		<xs:sequence>
+			<xs:element name="Customer" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="business:IndividualCustomer"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubscriberAccount" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="business:Account">
+							<xs:sequence>
+								<xs:element name="SubscriberNo" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Account" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="business:Account">
+							<xs:sequence>
+								<xs:element name="SubscriberNo" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryPaymentPlanRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="CustID" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryPaymentPlanResult">
+		<xs:sequence>
+			<xs:element name="PaymentPlanForOther" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>My account pay for other subscribers</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="DestSubNo" type="xs:string"/>
+						<xs:element name="FeeGroup" type="xs:string"/>
+						<xs:element name="AccountType" type="xs:string"/>
+						<xs:element name="LimitValue" type="xs:int"/>
+						<xs:element name="Priority" type="xs:int"/>
+						<xs:element name="PaymentPlanKey" type="xs:int"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PaymentPlanForMe" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Other subscribers pay for me.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SrcSubNo" type="xs:string"/>
+						<xs:element name="FeeGroup" type="xs:string"/>
+						<xs:element name="AccountType" type="xs:string"/>
+						<xs:element name="LimitValue" type="xs:int"/>
+						<xs:element name="Priority" type="xs:int"/>
+						<xs:element name="PaymentPlanKey" type="xs:int"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CheckPasswordRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>(*MSISDN*)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Password" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NewSubscriberRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="Customer" type="business:IndividualCustomer" minOccurs="0"/>
+			<xs:element name="Subscriber">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="business:Subscriber">
+							<xs:sequence>
+								<xs:element name="Password" type="xs:string" minOccurs="0"/>
+								<xs:element name="SCPID" type="xs:int" minOccurs="0"/>
+								<xs:element name="CBPID" type="xs:int" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Account" type="business:Account" minOccurs="0"/>
+			<xs:element name="Product" type="business:Product" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="NewSubscriberResult">
+		<xs:sequence>
+			<xs:element name="ProductOrderInfo" type="business:ProductOrderInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReNewSubscriberRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="Subscriber">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="business:Subscriber">
+							<xs:sequence>
+								<xs:element name="SubscriberNo" type="xs:string"/>
+								<xs:element name="Password" type="xs:string" minOccurs="0"/>
+								<xs:element name="SCPID" type="xs:int" minOccurs="0"/>
+								<xs:element name="CBPID" type="xs:int" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Account" type="business:Account" minOccurs="0"/>
+			<xs:element name="Product" type="business:Product" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ReNewSubscriberResult">
+		<xs:sequence>
+			<xs:element name="ProductOrderInfo" type="business:ProductOrderInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DeleteSubscriberRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="business:Common"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeMainProdRequest">
+		<xs:complexContent>
+			<xs:extension base="business:Common">
+				<xs:sequence>
+					<xs:element name="NewBrandId" type="xs:string" minOccurs="0"/>
+					<xs:element name="NewMainProductId" type="xs:string"/>
+					<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+					<xs:element name="ValidMode" type="business:ValidMode"/>
+					<xs:element name="EffectiveDate" type="xs:string" minOccurs="0"/>
+					<xs:element name="Product" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Product"/>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="RemovedProduct" minOccurs="0" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Product">
+									<xs:sequence>
+										<xs:element name="ProductOrderKey" type="xs:string" minOccurs="0"/>
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+					<xs:element name="ppsAcctCredit" type="xs:long" minOccurs="0"/>
+					<xs:element name="posAcctCredit" type="xs:long" minOccurs="0"/>
+					<xs:element name="ppsAcctInitBal" type="xs:long" minOccurs="0"/>
+					<xs:element name="posAcctInitBal" type="xs:long" minOccurs="0"/>
+					<xs:element name="newBillcycleType" type="xs:int" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChangeMainProdResult">
+		<xs:sequence>
+			<xs:element name="ProductOrderInfo" type="business:ProductOrderInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubscribeAppendantProductRequest">
+		<xs:complexContent>
+			<xs:extension base="business:Common">
+				<xs:sequence>
+					<xs:element name="Product" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Product">
+									<xs:sequence>
+										<xs:element name="Service" type="business:Service" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="EffectiveDate" type="xs:string" minOccurs="0"/>
+										<xs:element name="ExpireDate" type="xs:string" minOccurs="0"/>
+										<xs:element name="ValidMode" type="business:ValidMode"/>
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+					<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SubscribeAppendantProductResult">
+		<xs:sequence>
+			<xs:element name="ProductOrderInfo" type="business:ProductOrderInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeAppendantProductRequest">
+		<xs:complexContent>
+			<xs:extension base="business:Common">
+				<xs:sequence>
+					<xs:element name="Product" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Product">
+									<xs:sequence>
+										<xs:element name="OperationType" type="business:ProductOperationType">
+											<xs:annotation>
+												<xs:documentation>Add/Delete/Modify</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="Service" type="business:Service" minOccurs="0" maxOccurs="unbounded"/>
+										<xs:element name="ProductOrderKey" type="xs:string" minOccurs="0"/>
+										<xs:element name="ValidMode" type="business:ValidMode"/>
+										<xs:element name="EffectiveDate" type="xs:string" minOccurs="0"/>
+										<xs:element name="ExpireDate" type="xs:string" minOccurs="0"/>
+										<xs:element name="Status" type="xs:int" minOccurs="0"/>
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+					<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChangeAppendantProductResult">
+		<xs:sequence>
+			<xs:element name="ProductOrderInfo" type="business:ProductOrderInfoType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UnSubscribeAppendantProductRequest">
+		<xs:complexContent>
+			<xs:extension base="business:Common">
+				<xs:sequence>
+					<xs:element name="Product" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="ProductID" type="xs:string"/>
+								<xs:element name="ProductOrderKey" type="xs:string" minOccurs="0"/>
+								<xs:element name="ValidMode" type="xs:string"/>
+								<xs:element name="ExpireDate" type="xs:string" minOccurs="0"/>
+								<xs:element name="Service" minOccurs="0" maxOccurs="unbounded">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element name="Id" type="xs:string"/>
+											<xs:element name="SimpleProperty" type="business:SimpleProperty" maxOccurs="unbounded"/>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChangeCustBasicInforRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+			<xs:element name="Code" type="xs:string" minOccurs="0"/>
+			<xs:element name="IdType" type="business:IDType" minOccurs="0"/>
+			<xs:element name="IdCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="Gender" type="business:Gender" minOccurs="0"/>
+			<xs:element name="Birthday" type="xs:string" minOccurs="0"/>
+			<xs:element name="Address" type="xs:string" minOccurs="0"/>
+			<xs:element name="Grade" type="business:CustomerGrade" minOccurs="0"/>
+			<xs:element name="BelToAreaID" type="xs:string" minOccurs="0"/>
+			<xs:element name="Email" type="xs:string" minOccurs="0"/>
+			<xs:element name="ZipCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="CustomerType" type="xs:integer" minOccurs="0"/>
+			<xs:element name="Country" type="xs:integer" minOccurs="0"/>
+			<xs:element name="NativePlace" type="xs:integer" minOccurs="0"/>
+			<xs:element name="NationType" type="xs:integer" minOccurs="0"/>
+			<xs:element name="JobType" type="xs:integer" minOccurs="0"/>
+			<xs:element name="Education" type="xs:integer" minOccurs="0"/>
+			<xs:element name="CreditGrade" type="xs:integer" minOccurs="0"/>
+			<xs:element name="CreditAmount" type="xs:integer" minOccurs="0"/>
+			<xs:element name="CustomerState" type="xs:integer" minOccurs="0"/>
+			<xs:element name="MaritalStatus" type="xs:integer" minOccurs="0"/>
+			<xs:element name="Skill" type="xs:string" minOccurs="0"/>
+			<xs:element name="SocialNo" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeSubscriberBasicInforRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="Code" type="xs:string" minOccurs="0"/>
+			<xs:element name="Lang" type="xs:string" minOccurs="0"/>
+			<xs:element name="SMSLang" type="xs:string" minOccurs="0"/>
+			<xs:element name="USSDLang" type="xs:string" minOccurs="0"/>
+			<xs:element name="InitialCredit" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:minInclusive value="0"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="BelToAreaID" type="xs:string" minOccurs="0"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeAccountBasicInforRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="Name" type="xs:string" minOccurs="0"/>
+			<xs:element name="Code" type="xs:string" minOccurs="0"/>
+			<xs:element name="Title" type="xs:string" minOccurs="0"/>
+			<xs:element name="Address" type="xs:string" minOccurs="0"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangePasswordRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="OldPassword" type="xs:string"/>
+			<xs:element name="NewPassword" type="xs:string"/>
+			<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResetPasswordRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>MSISDN</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="NewPassword" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeMSISDNRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="NewSubscriberNo" type="xs:string"/>
+			<xs:element name="SCPID" type="xs:int" minOccurs="0"/>
+			<xs:element name="CBPID" type="xs:int" minOccurs="0"/>
+			<xs:element name="AIP" type="xs:int" minOccurs="0"/>
+			<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeSIMRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="OldIMSI" type="xs:string" minOccurs="0"/>
+			<xs:element name="NewIMSI" type="xs:string"/>
+			<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangePaymentPlanRequest">
+		<xs:complexContent>
+			<xs:extension base="business:Common">
+				<xs:sequence>
+					<xs:element name="PaymentPlan" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:sequence>
+								<xs:element name="DestSubNo" type="xs:string" minOccurs="0"/>
+								<xs:element name="AccountType" type="xs:string" minOccurs="0"/>
+								<xs:element name="LimitValue" type="xs:int" minOccurs="0"/>
+								<xs:element name="Priority" minOccurs="0">
+									<xs:simpleType>
+										<xs:restriction base="xs:int">
+											<xs:minInclusive value="3000"/>
+											<xs:maxInclusive value="3999"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+								<xs:element name="Feegroup" type="xs:string" minOccurs="0"/>
+								<xs:element name="OperationType" type="business:OperationType">
+									<xs:annotation>
+										<xs:documentation>Add/Delete/Modify</xs:documentation>
+									</xs:annotation>
+								</xs:element>
+								<xs:element name="PaymentPlanKey" type="xs:int" minOccurs="0"/>
+							</xs:sequence>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ChangeServicesRequest">
+		<xs:complexContent>
+			<xs:extension base="business:Common">
+				<xs:sequence>
+					<xs:element name="Service" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:complexContent>
+								<xs:extension base="business:Service">
+									<xs:sequence>
+										<xs:element name="OperationType" type="business:OperationType">
+											<xs:annotation>
+												<xs:documentation>Add/Delete/Modify</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+									</xs:sequence>
+								</xs:extension>
+							</xs:complexContent>
+						</xs:complexType>
+					</xs:element>
+					<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="DeleteRechageBlackRequest">
+		<xs:complexContent>
+			<xs:extension base="business:Common">
+				<xs:sequence>
+					<xs:element name="OperationType" type="xs:int" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="SuspendRequest">
+		<xs:complexContent>
+			<xs:extension base="business:Common">
+				<xs:sequence>
+					<xs:element name="SuspendDays" type="xs:int" minOccurs="0"/>
+					<xs:element name="InitiateType" type="xs:int" minOccurs="0"/>
+					<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ReconnectRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="business:Common"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ClaimMissingRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>(*MSISDN*)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="DisclaimMissingRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>(*MSISDN*)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BatchOperationRequest">
+		<xs:sequence>
+			<xs:element name="BatchNewSubscriber" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+						<xs:element name="Customer" type="business:IndividualCustomer" minOccurs="0"/>
+						<xs:element name="Subscriber">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="business:SubscriberBasic">
+										<xs:sequence>
+											<xs:element name="CBPID" type="xs:int" minOccurs="0"/>
+											<xs:element name="SCPID" type="xs:int" minOccurs="0"/>
+											<xs:element name="Password" type="xs:string" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Account" type="business:Account" minOccurs="0"/>
+						<xs:element name="Product" type="business:Product" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchDeleteSubscriber" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchSubscribe" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+						<xs:element name="EffectiveDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="ExpireDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="ValidMode" type="business:ValidMode"/>
+						<xs:element name="Product" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="business:Product">
+										<xs:sequence>
+											<xs:element name="Service" type="business:Service" minOccurs="0" maxOccurs="unbounded"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchUnSubscribe" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+						<xs:element name="ExpireDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="ValidMode" type="business:ValidMode"/>
+						<xs:element name="Product" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ProductID" type="xs:string"/>
+									<xs:element name="ProductOrderKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="Service" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Id" type="xs:string"/>
+												<xs:element name="SimpleProperty" type="business:SimpleProperty" maxOccurs="unbounded"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchChangeService" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+						<xs:element name="Service" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="business:Service">
+										<xs:sequence>
+											<xs:element name="OperationType" type="business:OperationType">
+												<xs:annotation>
+													<xs:documentation>Add/Delete/Modify</xs:documentation>
+												</xs:annotation>
+											</xs:element>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchChangeMainProduct" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+						<xs:element name="NewMainProductId" type="xs:string"/>
+						<xs:element name="ValidMode" type="business:ValidMode"/>
+						<xs:element name="EffectiveDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="Product" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="business:Product"/>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+						<xs:element name="RemovedProduct" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="business:Product">
+										<xs:sequence>
+											<xs:element name="ProductOrderKey" type="xs:string" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="NewBrandId" type="xs:string" minOccurs="0"/>
+						<xs:element name="ppsAcctCredit" type="xs:long" minOccurs="0"/>
+						<xs:element name="posAcctCredit" type="xs:long" minOccurs="0"/>
+						<xs:element name="ppsAcctInitBal" type="xs:long" minOccurs="0"/>
+						<xs:element name="PosAcctInitBal" type="xs:long" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchModifySubValidity" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+						<xs:element name="ValidityIncrement" type="xs:int"/>
+						<xs:element name="ModifyType" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:enumeration value="0"/>
+									<xs:enumeration value="1"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="OperationDes" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchModifyVoucherState" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+						<xs:element name="CardFlag" type="xs:int"/>
+						<xs:element name="OperationDes" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchReplaceProduct" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchActiveSubscriber" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BatchModAcctExt" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FileName" type="xs:string"/>
+						<xs:element name="ModifyMode" type="xs:int" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeOwnerRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="IdType" type="business:IDType"/>
+			<xs:element name="IdCode" type="xs:string"/>
+			<xs:element name="Gender" type="business:Gender"/>
+			<xs:element name="Birthday" type="xs:string" minOccurs="0"/>
+			<xs:element name="Address" type="xs:string" minOccurs="0"/>
+			<xs:element name="Grade" type="business:CustomerGrade" minOccurs="0"/>
+			<xs:element name="BelToAreaID" type="xs:string" minOccurs="0"/>
+			<xs:element name="ZipCode" type="xs:string" minOccurs="0"/>
+			<xs:element name="Email" type="xs:string" minOccurs="0"/>
+			<xs:element name="SimpleProperty" type="business:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="ChangeMode">
+				<xs:annotation>
+					<xs:documentation>
+            4050000,Just change customer informatio
+            4050001,Must new customer
+            4050002,Must new subscriber
+            4050003,Must new Account
+            4050004,all change to new
+          </xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:enumeration value="4050000"/>
+						<xs:enumeration value="4050001"/>
+						<xs:enumeration value="4050002"/>
+						<xs:enumeration value="4050003"/>
+						<xs:enumeration value="4050004"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryUserGroupRequest">
+		<xs:choice>
+			<xs:element name="UserGroupID" type="xs:string"/>
+			<xs:element name="UserGroupName" type="xs:string"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="QueryUserGroupResult">
+		<xs:sequence>
+			<xs:element name="UserGroup" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="GroupID" type="xs:string"/>
+						<xs:element name="GroupName" type="xs:string"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManGroupMemberRequest">
+		<xs:sequence>
+			<xs:element name="UserGroupID" type="xs:string"/>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="OperationType" type="xs:int"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubscribedGroupRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubscribedGroupResult">
+		<xs:sequence>
+			<xs:element name="UserGroup" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="GroupID" type="xs:string"/>
+						<xs:element name="GroupName" type="xs:string"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ModifySubscriberValidityRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="ValidityIncrement" type="xs:int"/>
+			<xs:element name="ModifyType" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:enumeration value="0"/>
+						<xs:enumeration value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ModifySubscriberValidityResult">
+		<xs:sequence>
+			<xs:element name="LifeCycleState" type="xs:string" nillable="true"/>
+			<xs:element name="ActiveStop" type="xs:string"/>
+			<xs:element name="SuspendStop" type="xs:string"/>
+			<xs:element name="DisableStop" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ModifySubscriberStateRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="OperateType" type="xs:int"/>
+			<xs:element name="SuspendDays" type="xs:int" minOccurs="0"/>
+			<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="IntegrationEnquiryRequest">
+		<xs:all>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="QueryType" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:int">
+						<xs:enumeration value="0"/>
+						<xs:enumeration value="1"/>
+						<xs:enumeration value="2"/>
+						<xs:enumeration value="3"/>
+						<xs:enumeration value="4"/>
+						<xs:enumeration value="5"/>
+						<xs:enumeration value="6"/>
+						<xs:enumeration value="7"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="CustID" type="xs:string" minOccurs="0"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="IntegrationEnquiryResult">
+		<xs:sequence>
+			<xs:element name="BalanceRecordList" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="BalanceRecord" type="business:BalanceRecordType" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubscriberState" minOccurs="0">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="FirstActiveDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="ActiveCAC" type="xs:string" minOccurs="0"/>
+						<xs:element name="ActiveStop" type="xs:string" minOccurs="0"/>
+						<xs:element name="SuspendStop" type="xs:string" minOccurs="0"/>
+						<xs:element name="DisableStop" type="xs:string" minOccurs="0"/>
+						<xs:element name="LifeCycleState" type="xs:int" nillable="true" minOccurs="0"/>
+						<xs:element name="DPFlag" nillable="true">
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:enumeration value="0"/>
+									<xs:enumeration value="1"/>
+									<xs:enumeration value="2"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="FraudState" nillable="true">
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:enumeration value="0"/>
+									<xs:enumeration value="1"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="LossFlag" nillable="true" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:enumeration value="0"/>
+									<xs:enumeration value="1"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="POSUserState" type="xs:int" nillable="true" minOccurs="0"/>
+						<xs:element name="LockedFlag" type="xs:int" nillable="true"/>
+						<xs:element name="DPEndDate" type="xs:string" minOccurs="0"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BillingCycleDate" minOccurs="0">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="BillCycleOpenDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="BillCycleEndDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="BillCycleType" type="xs:int" nillable="true" minOccurs="0"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubscriberInfo" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Subscriber">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="business:Subscriber"/>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Product" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="business:Product">
+										<xs:sequence>
+											<xs:element name="ProductOrderKey" type="xs:string" nillable="true" minOccurs="0"/>
+											<xs:element name="EffectiveDate" type="xs:string"/>
+											<xs:element name="ExpiredDate" type="xs:string"/>
+											<xs:element name="Status" type="xs:int" nillable="true"/>
+											<xs:element name="CurCycleStartTime" type="xs:string" minOccurs="0"/>
+											<xs:element name="CurCycleEndTime" type="xs:string" minOccurs="0"/>
+											<xs:element name="BillStatus" type="xs:int" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Service" type="business:Service" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CumulativeItemList" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CumulativeItem" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:all>
+									<xs:element name="CumulateID" type="xs:int" nillable="true"/>
+									<xs:element name="CumulateBeginTime" type="xs:string"/>
+									<xs:element name="CumulateEndTime" type="xs:string"/>
+									<xs:element name="CumulativeAmt" type="xs:int" nillable="true"/>
+								</xs:all>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UserGroupList" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="UserGroup" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:all>
+									<xs:element name="GroupID" type="xs:string"/>
+									<xs:element name="GroupName" type="xs:string"/>
+								</xs:all>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubAttachedInfo" minOccurs="0">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="ChgMainProductTimes" type="xs:int" nillable="true" minOccurs="0"/>
+						<xs:element name="ChgMainPackageTimes" type="xs:int" nillable="true" minOccurs="0"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubscriberProductInfoRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="ProductId" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubscriberProductInfoResult">
+		<xs:sequence>
+			<xs:element name="Product" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="business:Product">
+							<xs:sequence>
+								<xs:element name="ProductOrderKey" type="xs:string" nillable="true" minOccurs="0"/>
+								<xs:element name="EffectiveDate" type="xs:string" minOccurs="0"/>
+								<xs:element name="ExpiredDate" type="xs:string" minOccurs="0"/>
+								<xs:element name="status" type="xs:int" nillable="true" minOccurs="0"/>
+								<xs:element name="CurCycleStartTime" type="xs:string" minOccurs="0"/>
+								<xs:element name="CurCycleEndTime" type="xs:string" minOccurs="0"/>
+								<xs:element name="BillStatus" type="xs:int" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Service" type="business:Service" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubscriberServiceInfoRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="ServiceId" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubscriberServiceInfoResult">
+		<xs:sequence>
+			<xs:element name="Service" type="business:Service" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManSubCallScreenNoRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="CallScreenType" type="xs:string" minOccurs="0"/>
+			<xs:element name="CallScreenNoInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="callScreenNo" type="xs:string" minOccurs="0"/>
+						<xs:element name="effectiveDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="expireDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="weekStart" type="xs:string" minOccurs="0"/>
+						<xs:element name="weekStop" type="xs:string" minOccurs="0"/>
+						<xs:element name="routeNumber" type="xs:string" minOccurs="0"/>
+						<xs:element name="IRRouteFlag" type="xs:int" minOccurs="0"/>
+						<xs:element name="RoutingMethod" type="xs:int" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OperationType" type="xs:int"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManSubFamilyNoRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="FamilyNoInfo" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FamilyNo" type="xs:string"/>
+						<xs:element name="phoneNoOrder" type="xs:int" minOccurs="0"/>
+						<xs:element name="NewFamilyNo" type="xs:string" minOccurs="0"/>
+						<xs:element name="subGroupType" type="xs:string" minOccurs="0"/>
+						<xs:element name="effectiveDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="expireDate" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OperationType" type="xs:int"/>
+			<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ChangeSubLowBalPrtRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="LowBalPrt" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="CallLowBalType" type="xs:int"/>
+						<xs:element name="BalanceUpGate" type="xs:int"/>
+						<xs:element name="BalanceLowGate" type="xs:int"/>
+						<xs:element name="Action" type="xs:int" minOccurs="0"/>
+						<xs:element name="MessageID" type="xs:int" minOccurs="0"/>
+						<xs:element name="OperationType" type="xs:int"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubLowBalPrtRequest">
+		<xs:all>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="QuerySubLowBalPrtResult">
+		<xs:sequence>
+			<xs:element name="SubLowBalPrt" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="CallLowBalType" type="xs:int"/>
+						<xs:element name="BalanceUpGate" type="xs:int"/>
+						<xs:element name="BalanceLowGate" type="xs:int"/>
+						<xs:element name="Action" type="xs:int" minOccurs="0"/>
+						<xs:element name="MessageID" type="xs:int" minOccurs="0"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManSubHomeZoneRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="HomeZoneInfo" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HomeZoneID" type="xs:string"/>
+						<xs:element name="effectiveDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="expireDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="NewHomeZoneID" type="xs:string" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="OperationType" type="xs:int"/>
+			<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ModifyPosUserStateRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="NewPOSUserState" type="xs:int"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubCallScreenNoRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubCallScreenNoResult">
+		<xs:sequence>
+			<xs:element name="CallScreenType" type="xs:string" minOccurs="0"/>
+			<xs:element name="CallScreenNoInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="callScreenNo" type="xs:string" minOccurs="0"/>
+						<xs:element name="effectiveDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="expireDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="weekStart" type="xs:string" nillable="true" minOccurs="0"/>
+						<xs:element name="weekStop" type="xs:string" nillable="true" minOccurs="0"/>
+						<xs:element name="routeNumber" type="xs:string" minOccurs="0"/>
+						<xs:element name="IRRouteFlag" type="xs:int" nillable="true" minOccurs="0"/>
+						<xs:element name="RoutingMethod" type="xs:int" minOccurs="0"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="NonCallScreenNoInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="effectiveDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="expireDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="weekStart" type="xs:string" nillable="true" minOccurs="0"/>
+						<xs:element name="weekStop" type="xs:string" nillable="true" minOccurs="0"/>
+						<xs:element name="routeNumber" type="xs:string" minOccurs="0"/>
+						<xs:element name="IRRouteFlag" type="xs:int" nillable="true" minOccurs="0"/>
+						<xs:element name="RoutingMethod" type="xs:int" nillable="true" minOccurs="0"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubFamilyNoRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubFamilyNoResult">
+		<xs:sequence>
+			<xs:element name="FamilyNoInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FamilyNo" type="xs:string"/>
+						<xs:element name="effectiveDate" type="xs:string"/>
+						<xs:element name="expireDate" type="xs:string"/>
+						<xs:element name="GroupType" type="xs:int" nillable="true"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubHomeZoneRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubHomeZoneResult">
+		<xs:sequence>
+			<xs:element name="HomeZoneNoInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="HomeZoneNo" type="xs:int" nillable="true"/>
+						<xs:element name="effectiveDate" type="xs:string"/>
+						<xs:element name="expireDate" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryAdjustValidityLogRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="StartTime" type="xs:string" minOccurs="0"/>
+			<xs:element name="EndTime" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryAdjustValidityLogResult">
+		<xs:sequence>
+			<xs:element name="AdjustValidityLog" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TradeTime" type="xs:string"/>
+						<xs:element name="ModifyType" minOccurs="0">
+							<xs:simpleType>
+								<xs:restriction base="xs:int">
+									<xs:enumeration value="0"/>
+									<xs:enumeration value="1"/>
+								</xs:restriction>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="ValidityIncrement" type="xs:int"/>
+						<xs:element name="OperatorID" type="xs:string" minOccurs="0"/>
+						<xs:element name="OldActiveStop" type="xs:string"/>
+						<xs:element name="NewActiveStop" type="xs:string"/>
+						<xs:element name="OldSuspendStop" type="xs:string"/>
+						<xs:element name="NewSuspendStop" type="xs:string"/>
+						<xs:element name="OldDisableStop" type="xs:string"/>
+						<xs:element name="NewDisableStop" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManParentChildRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="OperationType" type="xs:int"/>
+			<xs:element name="ChildSubscriberInfo" minOccurs="0">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="ChildSubNo" type="xs:string"/>
+						<xs:element name="ChildSubType" type="xs:int" minOccurs="0"/>
+						<xs:element name="ChildSubLimitAmt" type="xs:int" minOccurs="0"/>
+						<xs:element name="EffectiveDate" type="xs:string" minOccurs="0"/>
+						<xs:element name="ExpireDate" type="xs:string" minOccurs="0"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManParentChildResult">
+		<xs:sequence>
+			<xs:element name="ChildSubscriberInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="ChildSubNo" type="xs:string"/>
+						<xs:element name="ChildSubType" type="xs:int"/>
+						<xs:element name="ChildSubLimitation" type="xs:int"/>
+						<xs:element name="EffectiveTime" type="xs:string"/>
+						<xs:element name="ExpireTime" type="xs:string"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryChildLimitRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryChildLimitResult">
+		<xs:sequence>
+			<xs:element name="Limitation" type="xs:int"/>
+			<xs:element name="Consumption" type="xs:int"/>
+			<xs:element name="AvailableLimitation" type="xs:int"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CheckUVCPartPinRequest">
+		<xs:sequence>
+			<xs:element name="Sequence" type="xs:string"/>
+			<xs:element name="CardPin" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CheckUVCPartPinResult">
+		<xs:sequence>
+			<xs:element name="CardInfo" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:all>
+						<xs:element name="CardPartPin" type="xs:string"/>
+						<xs:element name="HotFlag" type="xs:string"/>
+					</xs:all>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ApplyProdFreeValidityRequest">
+		<xs:sequence>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="ProductID" type="xs:string"/>
+			<xs:element name="ProductOrderKey" type="xs:string" minOccurs="0"/>
+			<xs:element name="ExtendDays" type="xs:int"/>
+			<xs:element name="HandlingChargeFlag" type="xs:int" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CheckSubscribersGroupRequest">
+		<xs:all>
+			<xs:element name="SubscriberNo" type="xs:string"/>
+			<xs:element name="OtherNumber" type="xs:string"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="CheckSubscribersGroupResult">
+		<xs:sequence>
+			<xs:element name="GroupRelation" type="xs:int"/>
+			<xs:element name="UserGroup" minOccurs="0" maxOccurs="2">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="GroupID" type="xs:string"/>
+						<xs:element name="GroupName" type="xs:string"/>
+						<xs:element name="ActiveFlg" type="xs:int"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

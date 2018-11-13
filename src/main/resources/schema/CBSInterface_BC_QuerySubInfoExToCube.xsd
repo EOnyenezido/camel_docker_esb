@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<!---->
+	<xs:complexType name="QuerySubInfoExToCubeRequest">
+		<xs:sequence>
+			<xs:element name="AccessInfo">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ObjectIdType">
+							<xs:annotation>
+								<xs:documentation>Entity ID type. 
+1:Customer ID.   
+2:Account ID.   
+3:Subscriber ID.   
+4:Service Number.  
+5:ICCID
+</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="ObjectId">
+							<xs:annotation>
+								<xs:documentation>The ID of the object you want to operate. E.g. if you want to change the customer. This value is customer ID, if you want to change the account this value is account ID.</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QuerySubInfoExToCubeResult">
+		<xs:sequence>
+			<xs:element name="Subscriber">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ServiceNum">
+							<xs:annotation>
+								<xs:documentation>This type is used to identify the subscriber's primary service number. E.g. MSISDN.
+The number format depend on the solution, normally it is:
+1) National number
+2) Country code+national number
+</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="PaymentType" nillable="true">
+							<xs:annotation>
+								<xs:documentation>Payment type of an account. 
+0:Prepaid. 
+1:Postpaid.
+
+</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="BalanceAmount" type="xs:long">
+							<xs:annotation>
+								<xs:documentation>Subscriber’s main account balance, unit is AZN, e.g 12.34
+</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="PrimaryOfferName">
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="PrimaryOfferKey" type="xs:integer"/>
+						<xs:element name="LifeCycleStatus" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Subscriber status：
+1:Idle  
+2:Active  
+3:Baring (B1W)  
+4:Suspended (B2W)  
+5:Pre-deactivate  
+9:Deactive.
+</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="ManagementSatus" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>Subscriber management status：
+1: claim missing
+2: blocked the subscriber by bank  
+</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="BlacklistStatus" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>BlacklistStatu：
+0: Recharge Blacklist
+2:Active
+</xs:documentation>
+							</xs:annotation>
+							<xs:simpleType>
+								<xs:restriction base="xs:string"/>
+							</xs:simpleType>
+						</xs:element>
+						<xs:element name="AdditionalProperty" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Code">
+										<xs:simpleType>
+											<xs:restriction base="xs:string"/>
+										</xs:simpleType>
+									</xs:element>
+									<xs:element name="Value">
+										<xs:simpleType>
+											<xs:restriction base="xs:string"/>
+										</xs:simpleType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="PaymentLimitUsage" minOccurs="0">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Amount" type="xs:long"/>
+									<xs:element name="UsedAmount" type="xs:long"/>
+									<xs:element name="LimitType" type="xs:string"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

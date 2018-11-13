@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<!---->
+	<xs:complexType name="QueryPaymentRelationRequest">
+		<xs:sequence>
+			<xs:element name="PayAccount" minOccurs="0">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bccommon:AcctAccessCode">
+							<xs:sequence>
+								<xs:element name="PayType" type="xs:string" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PaymentObj" minOccurs="0">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+						<xs:element name="CustAccessCode" type="bccommon:CustAccessCode"/>
+						<xs:element name="SubGroupAccessCode" type="bccommon:SubGroupAccessCode"/>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryPaymentRelationResult">
+		<xs:sequence>
+			<xs:element name="PaymentRelationList" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PayRelation" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PayRelationKey" type="xs:string"/>
+									<xs:element name="DefaultPayFlag" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>Y/N</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="AcctKey" type="xs:string"/>
+									<xs:element name="PayObjType" type="xs:string"/>
+									<xs:element name="PayObjKey" type="xs:string"/>
+									<xs:element name="PayObjCode" type="xs:string"/>
+									<xs:element name="Priority" type="xs:integer"/>
+									<xs:element name="PayRelExtRule" type="bccommon:PayRelExtRule" minOccurs="0"/>
+									<xs:element name="OnlyPayRelFlag" type="xs:string" minOccurs="0"/>
+									<xs:element name="PaymentLimitKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="OriginType" type="xs:string" minOccurs="0"/>
+									<xs:element name="OriginKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="EffectiveTime" type="bccommon:DateTime"/>
+									<xs:element name="ExpirationTime" type="bccommon:DateTime"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="PaymentLimit" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PaymentLimitKey" type="xs:string"/>
+									<xs:element name="PaymentLimitInfo">
+										<xs:complexType>
+											<xs:complexContent>
+												<xs:extension base="bccommon:PaymentLimit"/>
+											</xs:complexContent>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

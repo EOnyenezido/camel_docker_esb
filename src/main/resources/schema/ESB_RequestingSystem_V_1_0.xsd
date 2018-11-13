@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:esbrs="http://www.accenture.com/schemas/TOPENG/ESB_RequestingSystem_V_1_0"
+	 xmlns:ns0="http://crm.huawei.com/bss/basetype/"
+	 targetNamespace="http://www.accenture.com/schemas/TOPENG/ESB_RequestingSystem_V_1_0"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:complexType name="requestingSystem">
+		<xs:sequence>
+			<xs:element name="correlationID" type="xs:string" minOccurs="0"/>
+			<xs:element name="requestingApplicationName" type="xs:string" minOccurs="0"/>
+			<xs:element name="requestingServer" type="xs:string" minOccurs="0"/>
+			<xs:element name="serviceContext" type="esbrs:serviceContext" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="serviceContext">
+		<xs:sequence>
+			<xs:element name="businessScenario" type="xs:string" minOccurs="0"/>
+			<xs:element name="serviceOperation" type="xs:string" minOccurs="0"/>
+			<xs:element name="serviceDescription" type="xs:string" minOccurs="0"/>
+			<xs:element name="versionNumber" type="xs:string" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RequestHeader">
+		<xs:all>
+			<xs:element name="Version" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Interface version</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BEId" type="xs:string"/>
+			<xs:element name="TransactionId" type="xs:string"/>
+			<xs:element name="SessionId" type="xs:string" minOccurs="0"/>
+			<xs:element name="ChannelId" type="xs:string"/>
+			<xs:element name="ProcessTime" type="xs:string"/>
+			<xs:element name="OperatorId" type="xs:string" minOccurs="0"/>
+			<xs:element name="OperatorPwd" type="xs:string" minOccurs="0"/>
+			<xs:element name="Language" type="xs:string" minOccurs="0"/>
+			<xs:element name="AccessUser" type="xs:string"/>
+			<xs:element name="AccessPwd" type="xs:string"/>
+			<xs:element name="TestFlag" type="xs:string" minOccurs="0"/>
+			<xs:element name="TimeType" type="xs:string"/>
+			<xs:element name="TimeZoneID" type="xs:string" minOccurs="0"/>
+			<xs:element name="requestingSystem" type="esbrs:requestingSystem" minOccurs="0"/>
+			<xs:element name="ThirdPartyID" type="xs:int" minOccurs="0"/>
+			<xs:element name="ExtParamList" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ParameterInfo" type="esbrs:Param" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="Param">
+		<xs:all>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="Value" type="xs:string"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="ResponseHeader">
+		<xs:all>
+			<xs:element name="RequestHeader" type="esbrs:RequestHeader"/>
+			<xs:element name="RetCode" type="xs:string"/>
+			<xs:element name="RetMsg" type="xs:string" minOccurs="0"/>
+			<xs:element name="ThirdPartyID" type="xs:int" minOccurs="0"/>
+			<xs:element name="ExtParamList" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ParameterInfo" type="esbrs:Param" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+</xs:schema>

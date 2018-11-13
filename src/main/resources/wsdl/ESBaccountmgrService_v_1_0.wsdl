@@ -1,0 +1,952 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns="http://www.huawei.com/bme/cbsinterface/cbs/accountmgrmsg" xmlns:tns="http://www.huawei.com/bme/cbsinterface/cbs/accountmgr" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:jms="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS" xmlns:soap1="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:jndi="http://www.tibco.com/namespaces/ws/2004/soap/apis/jndi" name="Untitled" targetNamespace="http://www.huawei.com/bme/cbsinterface/cbs/accountmgr">
+    <wsdl:types>
+        <xs:schema xmlns:ns0="http://www.huawei.com/bme/cbsinterface/common" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.huawei.com/bme/cbsinterface/cbs/accountmgrmsg" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:import namespace="http://www.huawei.com/bme/cbsinterface/common" schemaLocation="../schema/ESBaccountmgr_Common_v_1_0.xsd"/>
+            <xs:import namespace="http://www.huawei.com/bme/cbsinterface/cbs/accountmgr" schemaLocation="../schema/ESBaccountmgr_v_1_0.xsd"/>
+            <xs:import namespace="http://www.huawei.com/bme/cbsinterface/common"/>
+            <xs:import namespace="http://www.huawei.com/bme/cbsinterface/cbs/accountmgr"/>
+            <xs:element name="ActiveFirstRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="ActiveFirstRequest" form="unqualified" type="tns:ActiveFirstRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ActiveFirstResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AdjustAccountRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="AdjustAccountRequest" form="unqualified" type="tns:AdjustAccountRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="AdjustAccountResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="AdjustAccountResult" form="unqualified" type="tns:AdjustAccountResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="BalanceToValidityRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="BalanceToValidityRequest" form="unqualified" type="tns:BalanceToValidityRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="BalanceToValidityResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="BalanceToValidityResult" form="unqualified" type="tns:BalanceToValidityResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CumulateEnquiryRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="CumulateEnquiryRequest" form="unqualified" type="tns:CumulateEnquiryRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="CumulateEnquiryResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="CumulateEnquiryResult" form="unqualified" type="tns:CumulateEnquiryResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ExchangeAccountRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="ExchangeAccountRequest" form="unqualified" type="tns:ExchangeAccountRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ExchangeAccountResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="ExchangeAccountResult" form="unqualified" type="tns:ExchangeAccountResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ModSubBillCycleTypeRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="ModSubBillCycleTypeRequest" form="unqualified" type="tns:ModSubBillCycleTypeRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ModSubBillCycleTypeResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ModifyVoucherStateRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="ModifyVoucherStateRequest" form="unqualified" type="tns:ModifyVoucherStateRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ModifyVoucherStateResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="OneOffDeductionRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="OneOffDeductionRequest" form="unqualified" type="tns:OneOffDeductionRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="OneOffDeductionResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="OneOffDeductionResult" form="unqualified" type="tns:OneOffDeductionResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PaymentEnquiryRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="PaymentEnquiryRequest" form="unqualified" type="tns:PaymentEnquiryRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PaymentEnquiryResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="PaymentEnquiryResult" form="unqualified" type="tns:PaymentEnquiryResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PaymentRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="PaymentRequest" form="unqualified" type="tns:PaymentRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="PaymentResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="PaymentResult" form="unqualified" type="tns:PaymentResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="QueryAdjustmentLogRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="QueryAdjustmentLogRequest" form="unqualified" type="tns:QueryAdjustmentLogRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="QueryAdjustmentLogResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="QueryAdjustmentLogResult" form="unqualified" type="tns:QueryAdjustmentLogResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="QueryBalanceRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="QueryBalanceRequest" form="unqualified" type="tns:QueryBalanceRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="QueryBalanceResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="QueryBalanceResult" form="unqualified" type="tns:QueryBalanceResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="QueryTransferLogRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="QueryTransferLogRequest" form="unqualified" type="tns:QueryTransferLogRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="QueryTransferLogResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="QueryTransferLogResult" form="unqualified" type="tns:QueryTransferLogResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ReversePaymentRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="ReversePaymentRequest" form="unqualified" type="tns:ReversePaymentRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ReversePaymentResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="ReversePaymentResult" form="unqualified" type="tns:ReversePaymentResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ServiceHandleFeeRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="ServiceHandleFeeRequest" form="unqualified" type="tns:ServiceHandleFeeRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ServiceHandleFeeResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="ServiceHandleFeeResult" form="unqualified" type="tns:ServiceHandleFeeResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TransInPpsPosRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="TransInPpsPosRequest" form="unqualified" type="tns:TransInPpsPosRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TransInPpsPosResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="TransInPpsPosResult" form="unqualified" type="tns:TransInPpsPosResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TransferAccountRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="TransferAccountRequest" form="unqualified" type="tns:TransferAccountRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="TransferAccountResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="TransferAccountResult" form="unqualified" type="tns:TransferAccountResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VoucherEnquiryByPINRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="VoucherEnquiryByPINRequest" form="unqualified" type="tns:VoucherEnquiryByPINRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VoucherEnquiryByPINResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="VoucherEnquiryByPINResult" form="unqualified" type="tns:VoucherEnquiryByPINResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VoucherEnquiryBySeqRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="VoucherEnquiryBySeqRequest" form="unqualified" type="tns:VoucherEnquiryBySeqRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VoucherEnquiryBySeqResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="VoucherEnquiryBySeqResult" form="unqualified" type="tns:VoucherEnquiryBySeqResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VoucherRechargeEnquiryRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="VoucherRechargeEnquiryRequest" form="unqualified" type="tns:VoucherRechargeEnquiryRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VoucherRechargeEnquiryResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="VoucherRechargeEnquiryResult" form="unqualified" type="tns:VoucherRechargeEnquiryResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VoucherRechargeRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="RequestHeader" form="unqualified" type="ns0:RequestHeader"/>
+                        <xs:element name="VoucherRechargeRequest" form="unqualified" type="tns:VoucherRechargeRequest"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="VoucherRechargeResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="ResultHeader" form="unqualified" type="ns0:ResultHeader"/>
+                        <xs:element name="VoucherRechargeResult" form="unqualified" type="tns:VoucherRechargeResult" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="ESBaccountmgrService_v_1_0">
+        <wsdl:port name="CBSInterfaceAccountMgrServicePortTypeEndpoint" binding="tns:CBSInterfaceAccountMgrServicePortTypeEndpointBinding">
+            <soap:address location="https://10.130.46.6:8585/TABS_AccountMgr_Services"/>
+        </wsdl:port>
+        <wsdl:port name="CBSInterfaceAccountMgrServicePortTypeEndpoint_JMS" binding="tns:CBSInterfaceAccountMgrServicePortTypeEndpoint_JMSBinding">
+            <soap:address location="jms"/>
+            <jms:connectionFactory>QueueConnectionFactory</jms:connectionFactory>
+            <jms:targetAddress destination="queue">EMTS.NG.DEV.RQ.Q.SPF.OCS1_2.AcctMgrServiceQueue.V1_0</jms:targetAddress>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="CBSInterfaceAccountMgrServicePortType">
+        <wsdl:operation name="VoucherRecharge">
+            <wsdl:input message="tns:VoucherRechargeRequestMessage"/>
+            <wsdl:output message="tns:VoucherRechargeResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ActiveFirst">
+            <wsdl:input message="tns:ActiveFirstRequestMessage"/>
+            <wsdl:output message="tns:ActiveFirstResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ReversePayment">
+            <wsdl:input message="tns:ReversePaymentRequestMessage"/>
+            <wsdl:output message="tns:ReversePaymentResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ModifyVoucherState">
+            <wsdl:input message="tns:ModifyVoucherStateRequestMessage"/>
+            <wsdl:output message="tns:ModifyVoucherStateResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="PaymentEnquiry">
+            <wsdl:input message="tns:PaymentEnquiryRequestMessage"/>
+            <wsdl:output message="tns:PaymentEnquiryResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ExchangeAccount">
+            <wsdl:input message="tns:ExchangeAccountRequestMessage"/>
+            <wsdl:output message="tns:ExchangeAccountResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="QueryBalance">
+            <wsdl:input message="tns:QueryBalanceRequestMessage"/>
+            <wsdl:output message="tns:QueryBalanceResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="TransferAccount">
+            <wsdl:input message="tns:TransferAccountRequestMessage"/>
+            <wsdl:output message="tns:TransferAccountResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="TransInPpsPos">
+            <wsdl:input message="tns:TransInPpsPosRequestMessage"/>
+            <wsdl:output message="tns:TransInPpsPosResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="QueryTransferLog">
+            <wsdl:input message="tns:QueryTransferLogRequestMessage"/>
+            <wsdl:output message="tns:QueryTransferLogResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="VoucherEnquiryBySeq">
+            <wsdl:input message="tns:VoucherEnquiryBySeqRequestMessage"/>
+            <wsdl:output message="tns:VoucherEnquiryBySeqResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="AdjustAccount">
+            <wsdl:input message="tns:AdjustAccountRequestMessage"/>
+            <wsdl:output message="tns:AdjustAccountResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="Payment">
+            <wsdl:input message="tns:PaymentRequestMessage"/>
+            <wsdl:output message="tns:PaymentResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ModSubBillCycleType">
+            <wsdl:input message="tns:ModSubBillCycleTypeRequestMessage"/>
+            <wsdl:output message="tns:ModSubBillCycleTypeResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="BalanceToValidity">
+            <wsdl:input message="tns:BalanceToValidityRequestMessage"/>
+            <wsdl:output message="tns:BalanceToValidityResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="VoucherEnquiryByPIN">
+            <wsdl:input message="tns:VoucherEnquiryByPINRequestMessage"/>
+            <wsdl:output message="tns:VoucherEnquiryByPINResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ServiceHandleFee">
+            <wsdl:input message="tns:ServiceHandleFeeRequestMessage"/>
+            <wsdl:output message="tns:ServiceHandleFeeResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="CumulateEnquiry">
+            <wsdl:input message="tns:CumulateEnquiryRequestMessage"/>
+            <wsdl:output message="tns:CumulateEnquiryResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="OneOffDeduction">
+            <wsdl:input message="tns:OneOffDeductionRequestMessage"/>
+            <wsdl:output message="tns:OneOffDeductionResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="QueryAdjustmentLog">
+            <wsdl:input message="tns:QueryAdjustmentLogRequestMessage"/>
+            <wsdl:output message="tns:QueryAdjustmentLogResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="VoucherRechargeEnquiry">
+            <wsdl:input message="tns:VoucherRechargeEnquiryRequestMessage"/>
+            <wsdl:output message="tns:VoucherRechargeEnquiryResultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CBSInterfaceAccountMgrServicePortTypeEndpointBinding" type="tns:CBSInterfaceAccountMgrServicePortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="VoucherRecharge">
+            <soap:operation style="document" soapAction="VoucherRecharge"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ActiveFirst">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/ActiveFirst"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ReversePayment">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/ReversePayment"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ModifyVoucherState">
+            <soap:operation style="document" soapAction="ModifyVoucherState"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PaymentEnquiry">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/PaymentEnquiry"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ExchangeAccount">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/ExchangeAccount"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="QueryBalance">
+            <soap:operation style="document" soapAction="QueryBalance"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="TransferAccount">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/TransferAccount"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="TransInPpsPos">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/TransInPpsPos"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="QueryTransferLog">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/QueryTransferLog"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="VoucherEnquiryBySeq">
+            <soap:operation style="document" soapAction="VoucherEnquiryBySeq"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AdjustAccount">
+            <soap:operation style="document" soapAction="AdjustAccount"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Payment">
+            <soap:operation style="document" soapAction="Payment"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ModSubBillCycleType">
+            <soap:operation style="document" soapAction="ModSubBillCycleType"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="BalanceToValidity">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/BalanceToValidity"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="VoucherEnquiryByPIN">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/VoucherEnquiryByPIN"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ServiceHandleFee">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/ServiceHandleFee"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CumulateEnquiry">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/CumulateEnquiry"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="OneOffDeduction">
+            <soap:operation style="document" soapAction="OneOffDeduction"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="QueryAdjustmentLog">
+            <soap:operation style="document" soapAction="/BusinessServices/SPF/Provider/TABS/TABS_AccountMgr/Service/ESBaccountmgrService_v_1_0.serviceagent/CBSInterfaceAccountMgrServicePortTypeEndpoint1/QueryAdjustmentLog"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="VoucherRechargeEnquiry">
+            <soap:operation style="document" soapAction="VoucherRechargeEnquiry"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="CBSInterfaceAccountMgrServicePortTypeEndpoint_JMSBinding" type="tns:CBSInterfaceAccountMgrServicePortType">
+        <soap:binding style="document" transport="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS"/>
+        <jms:binding messageFormat="bytes"/>
+        <wsdl:operation name="VoucherRecharge">
+            <soap:operation style="document" soapAction="VoucherRecharge"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ActiveFirst">
+            <soap:operation style="document" soapAction="ActiveFirst"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ReversePayment">
+            <soap:operation style="document" soapAction="ReversePayment"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ModifyVoucherState">
+            <soap:operation style="document" soapAction="ModifyVoucherState"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="PaymentEnquiry">
+            <soap:operation style="document" soapAction="PaymentEnquiry"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ExchangeAccount">
+            <soap:operation style="document" soapAction="ExchangeAccount"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="QueryBalance">
+            <soap:operation style="document" soapAction="QueryBalance"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="TransferAccount">
+            <soap:operation style="document" soapAction="TransferAccount"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="TransInPpsPos">
+            <soap:operation style="document" soapAction="TransInPpsPos"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="QueryTransferLog">
+            <soap:operation style="document" soapAction="QueryTransferLog"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="VoucherEnquiryBySeq">
+            <soap:operation style="document" soapAction="VoucherEnquiryBySeq"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="AdjustAccount">
+            <soap:operation style="document" soapAction="AdjustAccount"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="Payment">
+            <soap:operation style="document" soapAction="Payment"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ModSubBillCycleType">
+            <soap:operation style="document" soapAction="ModSubBillCycleType"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="BalanceToValidity">
+            <soap:operation style="document" soapAction="BalanceToValidity"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="VoucherEnquiryByPIN">
+            <soap:operation style="document" soapAction="VoucherEnquiryByPIN"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ServiceHandleFee">
+            <soap:operation style="document" soapAction="ServiceHandleFee"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CumulateEnquiry">
+            <soap:operation style="document" soapAction="CumulateEnquiry"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="OneOffDeduction">
+            <soap:operation style="document" soapAction="OneOffDeduction"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="QueryAdjustmentLog">
+            <soap:operation style="document" soapAction="QueryAdjustmentLog"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="VoucherRechargeEnquiry">
+            <soap:operation style="document" soapAction="VoucherRechargeEnquiry"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="part1"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="VoucherRechargeRequestMessage">
+        <wsdl:part name="part1" element="ns:VoucherRechargeRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="VoucherRechargeResultMessage">
+        <wsdl:part name="part1" element="ns:VoucherRechargeResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ActiveFirstRequestMessage">
+        <wsdl:part name="part1" element="ns:ActiveFirstRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ActiveFirstResultMessage">
+        <wsdl:part name="part1" element="ns:ActiveFirstResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ReversePaymentRequestMessage">
+        <wsdl:part name="part1" element="ns:ReversePaymentRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ReversePaymentResultMessage">
+        <wsdl:part name="part1" element="ns:ReversePaymentResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ModifyVoucherStateRequestMessage">
+        <wsdl:part name="part1" element="ns:ModifyVoucherStateRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ModifyVoucherStateResultMessage">
+        <wsdl:part name="part1" element="ns:ModifyVoucherStateResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="PaymentEnquiryRequestMessage">
+        <wsdl:part name="part1" element="ns:PaymentEnquiryRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="PaymentEnquiryResultMessage">
+        <wsdl:part name="part1" element="ns:PaymentEnquiryResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ExchangeAccountRequestMessage">
+        <wsdl:part name="part1" element="ns:ExchangeAccountRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ExchangeAccountResultMessage">
+        <wsdl:part name="part1" element="ns:ExchangeAccountResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="QueryBalanceRequestMessage">
+        <wsdl:part name="part1" element="ns:QueryBalanceRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="QueryBalanceResultMessage">
+        <wsdl:part name="part1" element="ns:QueryBalanceResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="TransferAccountRequestMessage">
+        <wsdl:part name="part1" element="ns:TransferAccountRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="TransferAccountResultMessage">
+        <wsdl:part name="part1" element="ns:TransferAccountResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="TransInPpsPosRequestMessage">
+        <wsdl:part name="part1" element="ns:TransInPpsPosRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="TransInPpsPosResultMessage">
+        <wsdl:part name="part1" element="ns:TransInPpsPosResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="QueryTransferLogRequestMessage">
+        <wsdl:part name="part1" element="ns:QueryTransferLogRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="QueryTransferLogResultMessage">
+        <wsdl:part name="part1" element="ns:QueryTransferLogResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="VoucherEnquiryBySeqRequestMessage">
+        <wsdl:part name="part1" element="ns:VoucherEnquiryBySeqRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="VoucherEnquiryBySeqResultMessage">
+        <wsdl:part name="part1" element="ns:VoucherEnquiryBySeqResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="AdjustAccountRequestMessage">
+        <wsdl:part name="part1" element="ns:AdjustAccountRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="AdjustAccountResultMessage">
+        <wsdl:part name="part1" element="ns:AdjustAccountResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="PaymentRequestMessage">
+        <wsdl:part name="part1" element="ns:PaymentRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="PaymentResultMessage">
+        <wsdl:part name="part1" element="ns:PaymentResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ModSubBillCycleTypeRequestMessage">
+        <wsdl:part name="part1" element="ns:ModSubBillCycleTypeRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ModSubBillCycleTypeResultMessage">
+        <wsdl:part name="part1" element="ns:ModSubBillCycleTypeResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="BalanceToValidityRequestMessage">
+        <wsdl:part name="part1" element="ns:BalanceToValidityRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="BalanceToValidityResultMessage">
+        <wsdl:part name="part1" element="ns:BalanceToValidityResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="VoucherEnquiryByPINRequestMessage">
+        <wsdl:part name="part1" element="ns:VoucherEnquiryByPINRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="VoucherEnquiryByPINResultMessage">
+        <wsdl:part name="part1" element="ns:VoucherEnquiryByPINResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ServiceHandleFeeRequestMessage">
+        <wsdl:part name="part1" element="ns:ServiceHandleFeeRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ServiceHandleFeeResultMessage">
+        <wsdl:part name="part1" element="ns:ServiceHandleFeeResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="CumulateEnquiryRequestMessage">
+        <wsdl:part name="part1" element="ns:CumulateEnquiryRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="CumulateEnquiryResultMessage">
+        <wsdl:part name="part1" element="ns:CumulateEnquiryResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="OneOffDeductionRequestMessage">
+        <wsdl:part name="part1" element="ns:OneOffDeductionRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="OneOffDeductionResultMessage">
+        <wsdl:part name="part1" element="ns:OneOffDeductionResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="QueryAdjustmentLogRequestMessage">
+        <wsdl:part name="part1" element="ns:QueryAdjustmentLogRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="QueryAdjustmentLogResultMessage">
+        <wsdl:part name="part1" element="ns:QueryAdjustmentLogResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="VoucherRechargeEnquiryRequestMessage">
+        <wsdl:part name="part1" element="ns:VoucherRechargeEnquiryRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="VoucherRechargeEnquiryResultMessage">
+        <wsdl:part name="part1" element="ns:VoucherRechargeEnquiryResultMsg"/>
+    </wsdl:message>
+</wsdl:definitions>

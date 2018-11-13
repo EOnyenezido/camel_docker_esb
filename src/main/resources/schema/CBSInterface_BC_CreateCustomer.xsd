@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<!---->
+	<xs:complexType name="CreateCustomerRequest">
+		<xs:annotation>
+			<xs:documentation>This interface is used to create a node of customer hierarchy, including Root Register Customer and User Customer (Org Unit or Person).</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="RegisterCustKey" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>The customer key of register customer from request system.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Customer">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CustKey" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>It is the customer key from request system which this transaction wants to create.
+It can be same as the RegisterCustKey, or a different customer key (User Customer Key) under the Register Customer.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CustInfo" type="bccommon:CustInfo"/>
+						<xs:choice>
+							<xs:element name="IndividualInfo" type="bccommon:IndividualInfo" minOccurs="0"/>
+							<xs:element name="OrgInfo" type="bccommon:OrgInfo" minOccurs="0"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="DFTAccount" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PayRelationKey" type="xs:string"/>
+						<xs:element name="AcctKey" type="xs:string"/>
+						<xs:element name="AcctInfo" type="bccommon:AccountInfo" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AddressInfo" type="bccommon:Address" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SalesInfo" type="bccommon:SalesInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>It is the salesman information who create the register customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CreateCustomerResult">
+		<xs:sequence>
+			<xs:element name="Property" type="bccommon:SimpleProperty" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

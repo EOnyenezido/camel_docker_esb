@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+	attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon"
+		schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="ManCrossGroupRequest">
+		<xs:sequence>
+			<xs:element name="SubGroupAccessCodeA" type="bccommon:SubGroupAccessCode">
+				<xs:annotation>
+					<xs:documentation>The group which will build cross-net relation with another group</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SubGroupAccessCodeB" type="bccommon:SubGroupAccessCode">
+				<xs:annotation>
+					<xs:documentation>Another group which group A has cross-net relation with</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="OperationType" type="xs:integer">
+				<xs:annotation>
+					<xs:documentation>Identify which operation to manage share relation
+1: Add cross relation from group A to group B
+2: Delete exsiting cross relation from group A to group B</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

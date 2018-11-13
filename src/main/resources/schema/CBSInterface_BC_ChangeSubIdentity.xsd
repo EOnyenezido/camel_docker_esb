@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://www.huawei.com/bme/cbsinterface/cbscommon" elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon">
+  <xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+  <xs:complexType name="ChangeSubIdentityRequest">
+    <xs:sequence>
+      <xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+      <xs:choice>
+        <xs:element name="AddSubIdentity" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SubIdentityType" type="xs:string"/>
+              <xs:element name="SubIdentity" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DelSubIdentity" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="SubIdentityType" type="xs:string"/>
+              <xs:element name="SubIdentity" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ModifySubIdentity" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="OldSubIdentity" type="xs:string"/>
+              <xs:element name="OldSubIdentityType" type="xs:string"/>
+              <xs:element name="NewSubIdentity" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

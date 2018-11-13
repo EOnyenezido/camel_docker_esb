@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="BatchChangeSubValidityRequest">
+		<xs:sequence>
+			<xs:element name="OpType" type="xs:string"/>
+			<xs:element name="ValidityIncrement" type="xs:integer"/>
+			<xs:element name="FileName" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL--><wsdl:definitions name="Untitled" targetNamespace="http://www.huawei.com/bme/cbsinterface/bcservices" xmlns:tns="http://www.huawei.com/bme/cbsinterface/bcservices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:jms="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS" xmlns:soap1="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:jndi="http://www.tibco.com/namespaces/ws/2004/soap/apis/jndi">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.huawei.com/bme/cbsinterface/bcservices" xmlns:ns0="http://www.huawei.com/bme/cbsinterface/cbscommon" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:topeng="http://www.accenture.com/schemas/TOPENG/ESB_MPFSTOPENG_V_1_0">
+      <xs:import namespace="http://www.huawei.com/bme/cbsinterface/cbscommon" schemaLocation="../schema/CBSInterface_MessageHeader.xsd"/>
+      <xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="../schema/CBSInterface_BC_Common.xsd"/>
+      <xs:import namespace="http://www.accenture.com/schemas/TOPENG/ESB_MPFSTOPENG_V_1_0" schemaLocation="../schema/ESB_MPFSTOPENG_V_1_0.xsd"/>
+      <xs:import namespace="http://www.huawei.com/bme/cbsinterface/cbscommon" schemaLocation="../schema/CBSInterface_BC_ChangeSubStatus.xsd"/>
+      <xs:import namespace="http://www.huawei.com/bme/cbsinterface/cbscommon" schemaLocation="../schema/CBSInterface_BC_ChangeSubIdentity.xsd"/>
+      <xs:element name="ChangeSubStatusRequestMsg">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="unqualified" name="RequestHeader" type="ns0:RequestHeader"/>
+            <xs:element name="RequestBody">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element form="unqualified" name="ChangeSubStatusRequest" type="ns0:ChangeSubStatusRequest"/>
+                  <xs:element name="TopEngCommand" type="topeng:MMLCommandDet">
+                    <xs:annotation>
+                      <xs:documentation>MML Command to be send to TopEngine. The value will be send directly to TOPENGINE for Reconnecting</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ChangeSubStatusResultMsg">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="unqualified" name="ResultHeader" type="ns0:ResultHeader"/>
+            <xs:element form="unqualified" minOccurs="0" name="ChangeSubStatusResult" type="ns0:ChangeSubStatusResult"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ChangeSubIdentityRequestMsg">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="unqualified" name="RequestHeader" type="ns0:RequestHeader"/>
+            <xs:element name="RequestBody">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element form="unqualified" name="ChangeSubIdentityRequest" type="ns0:ChangeSubIdentityRequest"/>
+                  <xs:element name="TopEngCommand" type="topeng:MMLCommandDet">
+                    <xs:annotation>
+                      <xs:documentation>MML Command to be send to TopEngine. The value will be send directly to TOPENGINE for Reconnecting</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ChangeSubIdentityResultMsg">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element form="unqualified" name="ResultHeader" type="ns0:ResultHeader"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ChangeSubStatusRequestMessage">
+    <wsdl:part element="tns:ChangeSubStatusRequestMsg" name="ChangeSubStatusRequestMsg"/>
+  </wsdl:message>
+  <wsdl:message name="ChangeSubStatusResultMessage">
+    <wsdl:part element="tns:ChangeSubStatusResultMsg" name="ChangeSubStatusResultMsg"/>
+  </wsdl:message>
+  <wsdl:message name="ChangeSubIdentityRequestMessage">
+    <wsdl:part element="tns:ChangeSubIdentityRequestMsg" name="ChangeSubIdentityRequestMsg"/>
+  </wsdl:message>
+  <wsdl:message name="ChangeSubIdentityResultMessage">
+    <wsdl:part element="tns:ChangeSubIdentityResultMsg" name="ChangeSubIdentityResultMsg"/>
+  </wsdl:message>
+  <wsdl:portType name="CBSInterfaceBusinessMgr">
+    <wsdl:operation name="ChangeSubStatus">
+      <wsdl:input message="tns:ChangeSubStatusRequestMessage"/>
+      <wsdl:output message="tns:ChangeSubStatusResultMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeSubIdentity">
+      <wsdl:input message="tns:ChangeSubIdentityRequestMessage"/>
+      <wsdl:output message="tns:ChangeSubIdentityResultMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CBSInterfaceBusinessMgrEndpointBinding" type="tns:CBSInterfaceBusinessMgr">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ChangeSubStatus">
+      <soap:operation soapAction="ChangeSubStatus" style="document"/>
+      <wsdl:input>
+        <soap:body parts="ChangeSubStatusRequestMsg" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="ChangeSubStatusResultMsg" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeSubIdentity">
+      <soap:operation soapAction="ChangeSubIdentity" style="document"/>
+      <wsdl:input>
+        <soap:body parts="ChangeSubIdentityRequestMsg" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="ChangeSubIdentityResultMsg" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ESB_BusinessMgr_MPFS_V_1_0">
+    <!--CBSInterfaceBusinessMgrEndpoint is the Port type that has been created for the HTTP Connectivity Purpose, HTTP is the connection type that is to be used when Upstream System connects with API-X Service. The URL present will be replaced with the API-X URL which will be provided at the time of deployment-->
+    <wsdl:port binding="tns:CBSInterfaceBusinessMgrEndpointBinding" name="CBSInterfaceBusinessMgrEndpoint">
+      <soap:address location="https://10.130.46.6:8585/ESBMPFS/ESBMPFSPortTypeEndpoint"/>
+    </wsdl:port>
+  </wsdl:service>
+  <!--CBSInterfaceBusinessMgrEndpointBinding is the Port type that has been created for the HTTP Connectivity Purpose, HTTP is the connection type that is to be used when Upstream System connects with API-X Service. The URL present will be replaced with the API-X URL which will be provided at the time of deployment-->
+</wsdl:definitions>

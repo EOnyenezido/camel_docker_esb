@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="ChangeCustInfoRequest">
+		<xs:sequence>
+			<xs:element name="CustAccessCode" type="bccommon:CustAccessCode"/>
+			<xs:element name="CustInfo">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CustBasicInfo" type="bccommon:CustBasicInfo" minOccurs="0"/>
+						<xs:choice>
+							<xs:element name="Individual" type="bccommon:IndividualInfo" minOccurs="0"/>
+							<xs:element name="Organization" type="bccommon:OrgInfo" minOccurs="0"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AddressInfo" type="bccommon:Address" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

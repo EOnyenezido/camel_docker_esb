@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="SubDeactivationRequest">
+		<xs:sequence>
+			<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+			<xs:element name="OpType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>It indicates the Pre-Deactivation or Deactivation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AdditionalProperty" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>It is reserved for future extension</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bccommon:SimpleProperty"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SubDeactivationResult">
+		<xs:sequence>
+			<xs:element name="AcctBalance" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AcctKey" type="xs:string"/>
+						<xs:element name="AmountList" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Amount" type="xs:long"/>
+									<xs:element name="CurrencyID" type="xs:integer"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CancelPreDeactivationRequest">
+		<xs:sequence>
+			<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+			<xs:element name="OpType" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>1: Cancel Pre-Deactivation                     </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ResumeStatus" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Status" type="xs:string"/>
+						<xs:element name="StatusDetail" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

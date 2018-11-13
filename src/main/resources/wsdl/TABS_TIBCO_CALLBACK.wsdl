@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions
+     name="TABS_TIBCO_CALLBACK"
+     targetNamespace="http://ws/its/tabs/webservices/tabs_tibco_callback/TABS_TIBCO_CALLBACK.wsdl"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:tns="http://ws/its/tabs/webservices/tabs_tibco_callback/TABS_TIBCO_CALLBACK.wsdl"
+     xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+     xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+     xmlns:tns0="http://ws/its/tabs/webservices/tabs_tibco_callback/TABS_TIBCO_CALLBACK.wsdl/types/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws/its/tabs/webservices/tabs_tibco_callback/TABS_TIBCO_CALLBACK.wsdl/types/"
+             elementFormDefault="qualified" xmlns:tns="http://ws/its/tabs/webservices/tabs_tibco_callback/TABS_TIBCO_CALLBACK.wsdl/types/"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:soap11-enc="http://schemas.xmlsoap.org/soap/encoding/">
+            <complexType name="ProductobjUser">
+                <complexContent>
+                    <extension base="tns:ProductobjBase">
+                        <sequence>
+                            <element name="productid" type="string" nillable="true"/>
+                            <element name="systems" type="tns:Systemtbl" nillable="true"/>
+                            <element name="status" type="string" nillable="true"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="Systemtbl">
+                <sequence>
+                    <element name="array" type="tns:SystemobjUser" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="SystemobjUser">
+                <complexContent>
+                    <extension base="tns:SystemobjBase">
+                        <sequence>
+                            <element name="errordetails" type="tns:Errordetailtbl" nillable="true"/>
+                            <element name="systemname" type="string" nillable="true"/>
+                            <element name="status" type="string" nillable="true"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="Errordetailtbl">
+                <sequence>
+                    <element name="array" type="tns:ErrordetailobjUser" nillable="true" minOccurs="0"
+                         maxOccurs="unbounded"/>
+                </sequence>
+            </complexType>
+            <complexType name="ErrordetailobjUser">
+                <complexContent>
+                    <extension base="tns:ErrordetailobjBase">
+                        <sequence>
+                            <element name="errortype" type="string" nillable="true"/>
+                            <element name="errorcode" type="string" nillable="true"/>
+                            <element name="errordescription" type="string" nillable="true"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="ErrordetailobjBase">
+                <sequence/>
+            </complexType>
+            <complexType name="SystemobjBase">
+                <sequence/>
+            </complexType>
+            <complexType name="ProductobjBase">
+                <sequence/>
+            </complexType>
+            <element name="orderfinalresultElement">
+                <complexType>
+                    <sequence>
+                        <element name="orderid" type="string" nillable="true"/>
+                        <element name="status" type="string" nillable="true"/>
+                        <element name="products" type="tns:ProductobjUser" nillable="true" minOccurs="0"
+                             maxOccurs="unbounded"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="orderfinalresultResponseElement">
+                <complexType>
+                    <sequence>
+                        <element name="result" type="tns:TibcoresultobjUser" nillable="true" minOccurs="0"
+                             maxOccurs="unbounded"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="TibcoresultobjUser">
+                <complexContent>
+                    <extension base="tns:TibcoresultobjBase">
+                        <sequence>
+                            <element name="resultcode" type="string" nillable="true"/>
+                            <element name="resultmsg" type="string" nillable="true"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="TibcoresultobjBase">
+                <sequence/>
+            </complexType>
+        </schema>
+    </types>
+    <message name="TABS_TIBCO_CALLBACK_orderfinalresult">
+        <part name="parameters" element="tns0:orderfinalresultElement"/>
+    </message>
+    <message name="TABS_TIBCO_CALLBACK_orderfinalresultResponse">
+        <part name="parameters" element="tns0:orderfinalresultResponseElement"/>
+    </message>
+    <portType name="TABS_TIBCO_CALLBACK">
+        <operation name="orderfinalresult">
+            <input message="tns:TABS_TIBCO_CALLBACK_orderfinalresult"/>
+            <output message="tns:TABS_TIBCO_CALLBACK_orderfinalresultResponse"/>
+        </operation>
+    </portType>
+    <binding name="TABS_TIBCO_CALLBACKSoapHttp" type="tns:TABS_TIBCO_CALLBACK">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="orderfinalresult">
+            <soap:operation soapAction="http://ws/its/tabs/webservices/tabs_tibco_callback/TABS_TIBCO_CALLBACK.wsdl/orderfinalresult"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="TABS_TIBCO_CALLBACK">
+        <port name="TABS_TIBCO_CALLBACKSoapHttpPort" binding="tns:TABS_TIBCO_CALLBACKSoapHttp">
+            <soap:address location="http://10.138.64.77:8888/TABS611WebServicesFinal-TABS611WebServicesFinal-context-root/TABS_TIBCO_CALLBACKSoapHttpPort"/>
+        </port>
+    </service>
+</definitions>

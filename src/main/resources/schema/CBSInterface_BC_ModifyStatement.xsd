@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<!---->
+	<xs:complexType name="ModifyStatementRequest">
+		<xs:sequence>
+			<xs:element name="RegisterCust" type="bccommon:CustAccessCode">
+				<xs:annotation>
+					<xs:documentation>The customer key of root register customer.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="SmtKey" type="xs:string"/>
+			<xs:element name="StatementInfo" type="bccommon:StatementInfo" minOccurs="0"/>
+			<xs:element name="StatementScenario" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AddStatementScenario" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:choice>
+										<xs:element name="AccountKey" type="xs:string"/>
+										<xs:element name="SubscriberKey" type="xs:string"/>
+									</xs:choice>
+									<xs:element name="EffectiveTime" type="bccommon:EffectMode"/>
+									<xs:element name="ExpirationTime" type="bccommon:DateTime"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="DelStatementScenario" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:choice>
+										<xs:element name="AccountKey" type="xs:string"/>
+										<xs:element name="SubscriberKey" type="xs:string"/>
+									</xs:choice>
+									<xs:element name="ExpirationTime" type="bccommon:EffectMode"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AddressInfo" type="bccommon:Address" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

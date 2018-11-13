@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://esb.topeng"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	targetNamespace="http://esb.topeng">
+
+    <!-- Type definitions for input- and output parameters for webservice -->
+    <wsdl:types>
+        <xs:schema targetNamespace="http://esb.topeng">
+            <xs:element name="DeleteSubscriberRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:string" name="msisdn"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ProvisionSubscriberRequestMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:string" name="msisdn"/>
+                        <xs:element type="xs:string" name="iccid"/>
+                        <xs:element type="xs:string" name="imsi"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="DeleteSubscriberResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:integer" name="code"/>
+                        <xs:element type="xs:string" name="message"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="ProvisionSubscriberResultMsg">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:integer" name="code"/>
+                        <xs:element type="xs:string" name="message"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+
+    <!-- Message definitions for input and output -->
+    <wsdl:message name="DeleteSubscriberRequestMessage">
+        <wsdl:part name="DeleteSubscriberRequestMsg" element="tns:DeleteSubscriberRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteSubscriberResultMessage">
+        <wsdl:part name="DeleteSubscriberResultMsg" element="tns:DeleteSubscriberResultMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ProvisionSubscriberRequestMessage">
+        <wsdl:part name="ProvisionSubscriberRequestMsg" element="tns:ProvisionSubscriberRequestMsg"/>
+    </wsdl:message>
+    <wsdl:message name="ProvisionSubscriberResultMessage">
+        <wsdl:part name="ProvisionSubscriberResultMsg" element="tns:ProvisionSubscriberResultMsg"/>
+    </wsdl:message>
+
+    <!-- Port (interface) definitions -->
+    <wsdl:portType name="TopengEndpoint">
+        <wsdl:operation name="DeleteSubscriber">
+            <wsdl:input message="tns:DeleteSubscriberRequestMessage"/>
+            <wsdl:output message="tns:DeleteSubscriberResultMessage"/>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionSubscriber">
+            <wsdl:input message="tns:ProvisionSubscriberRequestMessage"/>
+            <wsdl:output message="tns:ProvisionSubscriberResultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <!-- Port bindings to transports and encoding - HTTP, document literal encoding is used -->
+    <wsdl:binding name="TopengBinding" type="tns:TopengEndpoint">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="DeleteSubscriber">
+            <soap:operation soapAction="DeleteSubscriber" style="document"/>
+            <wsdl:input>
+                <soap:body parts="DeleteSubscriberRequestMsg" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="DeleteSubscriberResultMsg" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionSubscriber">
+            <soap:operation soapAction="ProvisionSubscriber" style="document"/>
+            <wsdl:input>
+                <soap:body parts="ProvisionSubscriberRequestMsg" use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body parts="ProvisionSubscriberResultMsg" use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <!-- Service definition -->
+    <wsdl:service name="TopengEndpointService">
+        <wsdl:port name="TopengService" binding="tns:TopengBinding">
+            <soap:address location="https://10.130.46.6:8585/callTopeng"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

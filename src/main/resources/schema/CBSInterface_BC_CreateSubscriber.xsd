@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="CreateSubscriberRequest">
+		<xs:sequence>
+			<xs:element name="RegisterCustomer">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CustKey" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>It is the key of register customer.</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="CustInfo" type="bccommon:CustInfo" minOccurs="0"/>
+						<xs:choice>
+							<xs:element name="IndividualInfo" type="bccommon:IndividualInfo" minOccurs="0"/>
+							<xs:element name="OrgInfo" type="bccommon:OrgInfo" minOccurs="0"/>
+						</xs:choice>
+					</xs:sequence>
+					<xs:attribute name="OpType" type="xs:string" use="required">
+						<xs:annotation>
+							<xs:documentation>1: Register (It means create new regisiter customer information in this transaction)                        
+2: Registered (It means the register customer has been already created)</xs:documentation>
+						</xs:annotation>
+					</xs:attribute>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UserCustomer" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>It is the actual user customer information if the actual user is not same as register customer</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CustKey" type="xs:string"/>
+						<xs:element name="CustInfo" type="bccommon:CustInfo" minOccurs="0"/>
+						<xs:choice>
+							<xs:element name="IndividualInfo" type="bccommon:IndividualInfo" minOccurs="0"/>
+							<xs:element name="OrgInfo" type="bccommon:OrgInfo" minOccurs="0"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Account" minOccurs="0" maxOccurs="2">
+				<xs:annotation>
+					<xs:documentation>For prepaid or postpaid subscriber, there is only one corresponding account. 
+For Hybrid subscriber, there can be one prepaid account and one postpaid account with same billing cycle.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AcctKey" type="xs:string"/>
+						<xs:element name="AcctInfo" type="bccommon:AccountInfo" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Subscriber">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SubscriberKey" type="xs:string"/>
+						<xs:element name="SubscriberInfo" type="bccommon:Subscriber"/>
+						<xs:element name="SubPaymentMode">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="PaymentMode" type="xs:string" nillable="true"/>
+									<xs:choice>
+										<xs:sequence>
+											<xs:element name="PayRelationKey" type="xs:string" minOccurs="0"/>
+											<xs:element name="AcctKey" type="xs:string"/>
+										</xs:sequence>
+										<xs:sequence>
+											<xs:element name="AcctList" maxOccurs="2">
+												<xs:annotation>
+													<xs:documentation>For Postpaid or Prepaid subscriber, there is only one postpaid or prepaid account for this subscriber.
+For Hybrid subscriber, it can has prepaid account and postpaid account at the same time, but it should select one account as default.</xs:documentation>
+												</xs:annotation>
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="AcctKey" type="xs:string"/>
+														<xs:element name="DEFAcctFlag" type="xs:string"/>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="PayRelation" maxOccurs="unbounded">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="PayRelationKey" type="xs:string"/>
+														<xs:element name="AcctKey" type="xs:string"/>
+														<xs:element name="Priority" type="xs:integer"/>
+														<xs:element name="PayRelExtRule" type="bccommon:PayRelExtRule" minOccurs="0"/>
+														<xs:element name="OnlyPayRelFlag" type="xs:string" minOccurs="0"/>
+														<xs:element name="PaymentLimitKey" type="xs:string" minOccurs="0"/>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="PaymentLimit" minOccurs="0" maxOccurs="unbounded">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="PaymentLimitKey" type="xs:string"/>
+														<xs:element name="PaymentLimitInfo">
+															<xs:complexType>
+																<xs:complexContent>
+																	<xs:extension base="bccommon:PaymentLimit"/>
+																</xs:complexContent>
+															</xs:complexType>
+														</xs:element>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:choice>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="PrimaryOffering">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bccommon:POfferingInst">
+							<xs:sequence>
+								<xs:element name="EffectiveTime" type="bccommon:DateTime" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SupplementaryOffering" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="bccommon:OfferingInst">
+							<xs:sequence>
+								<xs:element name="OfferingOwner" type="bccommon:OfferingOwner" minOccurs="0"/>
+								<xs:element name="EffectiveTime" type="bccommon:EffectMode"/>
+								<xs:element name="ExpirationTime" type="bccommon:DateTime"/>
+								<xs:element name="ActivationTime" type="bccommon:ActiveMode" minOccurs="0"/>
+							</xs:sequence>
+						</xs:extension>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AddressInfo" type="bccommon:Address" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="SalesInfo" type="bccommon:SalesInfo" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CreateSubscriberResult">
+		<xs:sequence>
+			<xs:element name="EffectiveTime" type="bccommon:DateTime"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

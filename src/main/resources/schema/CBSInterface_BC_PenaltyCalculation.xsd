@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="PenaltyCalculationRequest">
+		<xs:sequence>
+			<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+			<xs:element name="OpType" type="xs:long" minOccurs="0"/>
+			<xs:element name="PenaltyOfferingInstInfoList" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CancelOfferingInst" type="OfferingInstInfo"/>
+						<xs:element name="DowngradeOfferingInst" type="OfferingInstInfo" minOccurs="0"/>
+						<xs:element name="PromotionOfferingInst" type="OfferingInstInfo" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="OfferingInstInfo">
+		<xs:sequence>
+			<xs:element name="OfferingInstID" type="xs:long"/>
+			<xs:element name="BeginTime" type="xs:string"/>
+			<xs:element name="EndTime" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PenaltyCalculationResult">
+		<xs:sequence>
+			<xs:element name="PenaltyChargeList" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ChargeAmt" type="xs:long" minOccurs="0"/>
+						<xs:element name="Tax" type="bccommon:Tax" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

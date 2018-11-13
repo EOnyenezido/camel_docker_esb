@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Created by TIBCO WSDL-->
+<wsdl:definitions xmlns:ns="http://www.accenture.com/schemas/TOPENG/ESB_TOPENG_V_1_0" xmlns:tns="http://www.accenture.com/wsdl/TOPENG/ESB_TOPENG_V_1_0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:jms="http://www.tibco.com/namespaces/ws/2004/soap/binding/JMS" xmlns:soap1="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:jndi="http://www.tibco.com/namespaces/ws/2004/soap/apis/jndi" name="Untitled" targetNamespace="http://www.accenture.com/wsdl/TOPENG/ESB_TOPENG_V_1_0">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.accenture.com/schemas/TOPENG/ESB_TOPENG_V_1_0" elementFormDefault="qualified" attributeFormDefault="unqualified">
+            <xs:include schemaLocation="../schema/ESB_TOPENG_V_1_0.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:service name="ESB_TOPENG_V_1_0">
+        <wsdl:port name="ESBTOPENGPortTypeEndpoint" binding="tns:ESBTOPENGPortTypeEndpointBinding">
+            <soap:address location="https://10.130.46.6:8585/ESBTOPENG_SinglePointFulfilment/ESBTOPENGPortTypeEndpoint"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsdl:portType name="TABSToTIBCOPortType">
+        <wsdl:operation name="CreateMMLCommand">
+            <wsdl:input message="tns:MMLCommandDetReq"/>
+            <wsdl:output message="tns:MMLCommandDetRes"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ESBTOPENGPortTypeEndpointBinding" type="tns:TABSToTIBCOPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="CreateMMLCommand">
+            <soap:operation style="document" soapAction="CreateMMLCommand"/>
+            <wsdl:input>
+                <soap:body use="literal" parts="MMLCommandReq"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" parts="MMLCommandResp"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:message name="MMLCommandDetReq">
+        <wsdl:part name="MMLCommandReq" element="ns:MMLCommandRequest"/>
+    </wsdl:message>
+    <wsdl:message name="MMLCommandDetRes">
+        <wsdl:part name="MMLCommandResp" element="ns:MMLCommandResponse"/>
+    </wsdl:message>
+</wsdl:definitions>

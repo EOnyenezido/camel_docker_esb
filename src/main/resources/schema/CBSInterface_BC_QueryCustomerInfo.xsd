@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<!---->
+	<xs:complexType name="QueryCustomerInfoRequest">
+		<xs:sequence>
+			<xs:element name="QueryObj">
+				<xs:complexType>
+					<xs:choice>
+						<xs:element name="CustAccessCode" type="bccommon:CustAccessCode"/>
+						<xs:element name="SubAccessCode">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:SubAccessCode"/>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="SubGroupAccessCode" type="bccommon:SubGroupAccessCode"/>
+						<xs:element name="AcctAccessCode">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:AcctAccessCode">
+										<xs:sequence>
+											<xs:element name="PayType" type="xs:string" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:choice>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="QueryCustomerInfoResult">
+		<xs:sequence>
+			<xs:element name="Customer" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CustKey" type="xs:string"/>
+						<xs:element name="CustInfo" type="bccommon:CustInfo"/>
+						<xs:choice>
+							<xs:element name="IndividualInfo" type="bccommon:IndividualInfo"/>
+							<xs:element name="OrgInfo" type="bccommon:OrgInfo"/>
+						</xs:choice>
+						<xs:element name="AddressInfo" type="bccommon:Address" minOccurs="0"/>
+						<xs:element name="OfferingInst" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:OfferingInst">
+										<xs:sequence>
+											<xs:element name="EffectiveTime" type="bccommon:DateTime"/>
+											<xs:element name="ExpirationTime" type="bccommon:DateTime"/>
+											<xs:element name="ActivationMode" type="xs:string"/>
+											<xs:element name="ActivationTime" type="bccommon:DateTime" minOccurs="0"/>
+											<xs:element name="ActiveTimeLimit" type="bccommon:DateTime" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Subscriber" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SubscriberKey" type="xs:string"/>
+						<xs:element name="SubscriberInfo">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:Subscriber">
+										<xs:sequence>
+											<xs:element name="StatusDetail" type="xs:string"/>
+											<xs:element name="ActivationTime" type="bccommon:DateTime" minOccurs="0"/>
+											<xs:element name="UserCustomer" minOccurs="0">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="CustKey" type="xs:string"/>
+														<xs:element name="CustInfo" type="bccommon:CustInfo"/>
+														<xs:choice>
+															<xs:element name="IndividualInfo" type="bccommon:IndividualInfo"/>
+															<xs:element name="OrgInfo" type="bccommon:OrgInfo"/>
+														</xs:choice>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="AddressInfo" type="bccommon:Address" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="PaymentMode" type="xs:string" nillable="true"/>
+						<xs:element name="PrimaryOffering" type="bccommon:POfferingInst"/>
+						<xs:element name="SupplementaryOffering" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:OfferingInst">
+										<xs:sequence>
+											<xs:element name="EffectiveTime" type="bccommon:DateTime"/>
+											<xs:element name="ExpirationTime" type="bccommon:DateTime"/>
+											<xs:element name="ActivationMode" type="xs:string"/>
+											<xs:element name="ActivationTime" type="bccommon:DateTime" minOccurs="0"/>
+											<xs:element name="ActiveTimeLimit" type="bccommon:DateTime"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="SubGroup" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="SubGroupKey" type="xs:string"/>
+						<xs:element name="SubGroupInfo">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:SubGroup">
+										<xs:sequence>
+											<xs:element name="GroupType" type="xs:string"/>
+											<xs:element name="Status" type="xs:string"/>
+											<xs:element name="StatusDetail" type="xs:string"/>
+											<xs:element name="UserCustomer" minOccurs="0">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="CustKey" type="xs:string"/>
+														<xs:element name="CustInfo" type="bccommon:CustInfo"/>
+														<xs:choice>
+															<xs:element name="IndividualInfo" type="bccommon:IndividualInfo"/>
+															<xs:element name="OrgInfo" type="bccommon:OrgInfo"/>
+														</xs:choice>
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+											<xs:element name="AddressInfo" type="bccommon:Address" minOccurs="0"/>
+											<xs:element name="RGroupKey" type="xs:string" minOccurs="0"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="PrimaryOffering" type="bccommon:POfferingInst"/>
+						<xs:element name="SupplementaryOffering" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:OfferingInst">
+										<xs:sequence>
+											<xs:element name="EffectiveTime" type="bccommon:DateTime"/>
+											<xs:element name="ExpirationTime" type="bccommon:DateTime"/>
+											<xs:element name="ActivationMode" type="xs:string"/>
+											<xs:element name="ActivationTime" type="bccommon:DateTime" minOccurs="0"/>
+											<xs:element name="ActiveTimeLimit" type="bccommon:DateTime"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="Account" minOccurs="0" maxOccurs="2">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="AcctKey" type="xs:string"/>
+						<xs:element name="AcctInfo">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="AcctCode" type="xs:string"/>
+									<xs:element name="UserCustomerKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="UserCustomer" minOccurs="0">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="CustKey" type="xs:string"/>
+												<xs:element name="CustInfo" type="bccommon:CustInfo"/>
+												<xs:choice>
+													<xs:element name="IndividualInfo" type="bccommon:IndividualInfo"/>
+													<xs:element name="OrgInfo" type="bccommon:OrgInfo"/>
+												</xs:choice>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="ParentAcctKey" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>There is a account hierarchy in the system. If a account node has a parent node in the account hierarchy, this field is the parent account key.</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RootAcctKey" type="xs:string" minOccurs="0"/>
+									<xs:element name="AcctBasicInfo" type="bccommon:AccountBasicInfo"/>
+									<xs:element name="BillCycleType" type="xs:string"/>
+									<xs:element name="AcctType" type="xs:string"/>
+									<xs:element name="PaymentType" type="xs:string"/>
+									<xs:element name="AcctClass" type="xs:string"/>
+									<xs:element name="CurrencyID" type="xs:integer"/>
+									<xs:element name="AcctPayMethod" type="xs:string"/>
+									<xs:element name="AutoPayChannel" minOccurs="0" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="AutoPayChannelKey" type="xs:string"/>
+												<xs:element name="AutoPayChannelInfo">
+													<xs:complexType>
+														<xs:complexContent>
+															<xs:extension base="bccommon:AutoPayChannelInfo"/>
+														</xs:complexContent>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="AddressInfo" type="bccommon:Address" minOccurs="0" maxOccurs="unbounded"/>
+									<xs:element name="BillCycleOpenDate" type="bccommon:DateTime" minOccurs="0"/>
+									<xs:element name="BillCycleEndDate" type="bccommon:DateTime" minOccurs="0"/>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="OfferingInst" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="bccommon:OfferingInst">
+										<xs:sequence>
+											<xs:element name="EffectiveTime" type="bccommon:DateTime"/>
+											<xs:element name="ExpirationTime" type="bccommon:DateTime"/>
+											<xs:element name="ActivationMode" type="xs:string"/>
+											<xs:element name="ActivationTime" type="bccommon:DateTime" minOccurs="0"/>
+											<xs:element name="ActiveTimeLimit" type="bccommon:DateTime"/>
+										</xs:sequence>
+									</xs:extension>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

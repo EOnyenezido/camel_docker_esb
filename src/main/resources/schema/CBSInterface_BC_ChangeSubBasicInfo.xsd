@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 编辑使用 XMLSpy v2006 U (http://www.altova.com) 由 any (any) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bccommon="http://www.huawei.com/bme/cbsinterface/bccommon" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.huawei.com/bme/cbsinterface/bccommon" schemaLocation="CBSInterface_BC_Common.xsd"/>
+	<xs:complexType name="ChangeSubInfoRequest">
+		<xs:sequence>
+			<xs:element name="SubAccessCode" type="bccommon:SubAccessCode"/>
+			<xs:element name="SubBasicInfo" type="bccommon:SubBasicInfo" minOccurs="0"/>
+			<xs:element name="UserCustomer" minOccurs="0">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="CustKey" type="xs:string"/>
+						<xs:element name="CustInfo" type="bccommon:CustInfo" minOccurs="0"/>
+						<xs:choice>
+							<xs:element name="IndividualInfo" type="bccommon:IndividualInfo" minOccurs="0"/>
+							<xs:element name="OrgInfo" type="bccommon:OrgInfo" minOccurs="0"/>
+						</xs:choice>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="AddressInfo" type="bccommon:Address" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
