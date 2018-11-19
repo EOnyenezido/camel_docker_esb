@@ -3,8 +3,6 @@ package esb.camel_docker_esb;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
-import com.huawei.bme.cbsinterface.cbs.accountmgrmsg.QueryBalanceResultMsg;
-
 @Component
 public class SPF_DS extends RouteBuilder {
 	
@@ -16,8 +14,8 @@ public class SPF_DS extends RouteBuilder {
 	
     @Override
     public void configure() {
-    	from("jms:spf_ds")
-    		.routeId("spf_ds").startupOrder(1) // ensures spf_ds is started first
+    	from("seda:spf_ds")
+    		.routeId("spf_ds").startupOrder(2) // ensures logger route is started first
     		.hystrix().id("downstreamCBS") // hystrix circuit breaker and bulkhead pattern to prevent downstream failures from cascading to the entire ESB
     			.hystrixConfiguration()
     				.circuitBreakerRequestVolumeThreshold(10) // number of requests failing that will trip the circuit

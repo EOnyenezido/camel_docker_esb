@@ -23,7 +23,7 @@
     <import resource="classpath:META-INF/spring/camel-cxf.xml"/>
     <import resource="classpath:META-INF/spring/camel-jms.xml"/>
     <!-- initialize camel context via spring -->
-    <camelContext id="Sample_SPF_MPFS_MPFA_using_Apache_Camel_CXF_AMQ" trace="true" xmlns="http://camel.apache.org/schema/spring">
+    <camelContext id="Sample_SPF_MPFS_MPFA_using_Apache_Camel_CXF_AMQ" trace="false" xmlns="http://camel.apache.org/schema/spring">
         <dataFormats>
 			<json id="json" library="Jackson"/>			
 		</dataFormats>

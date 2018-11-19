@@ -12,14 +12,18 @@ public class SPF_US extends RouteBuilder {
 	
     @Override
     public void configure() {
+    	// Log all transactions to our ELK logging queue
+    	onCompletion()
+			.to("seda:logger");
+    	
     	// SOAP Endpoint exposed using CXF
     	from("cxf:bean:spfEndpoint")
-    		.routeId("spf_us").startupOrder(2) // ensures spf_ds is started first
-    		.to("jms:spf_ds"); // to a JMS queue for processing
+    		.routeId("spf_us").startupOrder(3) // ensures spf_ds is started first
+    		.to("seda:spf_ds"); // to a JMS queue for processing
     	
     	// REST Endpoint exposed using Camel REST DSL
     	restConfiguration()
-    		.component("spark-rest")
+    		.component("netty4-http")
     		.contextPath("{{route.basePath}}")
     		.port("{{route.port}}")
     		.bindingMode(RestBindingMode.json_xml)
@@ -33,12 +37,13 @@ public class SPF_US extends RouteBuilder {
     			.setHeader("operationNamespace", constant("http://www.huawei.com/bme/cbsinterface/cbs/accountmgr"))
     			.setHeader("soapAction", constant("QueryBalance"))
     			.setHeader("requestDataType", simple("${in.header.Content-Type}")) // save the type of request which was sent xml or json
-    			.to("jms:spf_ds") // to same JMS queue as SOAP requests for processing
+    			.to("seda:spf_ds") // to same JMS queue as SOAP requests for processing
     			.choice()  // let camel know how to bind the response - jax-b or jackson
     				.when(simple("${header.requestDataType} == 'application/json'"))
     					.marshal("json")
     				.when(simple("${header.requestDataType} == 'application/xml'"))
-    					.convertBodyTo(QueryBalanceResultMsg.class);
+    					.convertBodyTo(QueryBalanceResultMsg.class)
+    			.end();
     }
 
 }
