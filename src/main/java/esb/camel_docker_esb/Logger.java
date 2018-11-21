@@ -35,7 +35,7 @@ public class Logger extends RouteBuilder {
     			.to("elasticsearch-rest:custom_log?operation=Index&indexName=esb_logs&indexType=_doc") // send the log to the elk server
     			.log("This is the response from  ELK: ${body}")
     			.onFallback() // error response on timeout
-    				.log("Hystrix ELK Fallback Triggered. This is the ERROR reason: ${exception.message}")
+    				.log("Hystrix ELK Fallback Triggered. This is the ERROR reason: ${exception.stacktrace}")
     		.end();
     }
 

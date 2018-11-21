@@ -14,25 +14,36 @@ public class SPF_US extends RouteBuilder {
     public void configure() {
     	// Log all transactions to our ELK logging queue
     	onCompletion()
+    		.choice()  // Convert from JSON to POJO for the logger if request was JSON
+				.when(simple("${header.requestDataType} == 'application/json'"))
+					.unmarshal("json")
+			.end()
 			.to("seda:logger");
     	
     	// SOAP Endpoint exposed using CXF
     	from("cxf:bean:spfEndpoint")
-    		.routeId("spf_us").startupOrder(3) // ensures spf_ds is started first
+    		.routeId("spf_us_soap").startupOrder(3) // ensures spf_ds is started first
     		.to("seda:spf_ds"); // to a JMS queue for processing
     	
     	// REST Endpoint exposed using Camel REST DSL
     	restConfiguration()
-    		.component("netty4-http")
+    		.component("spark-rest")
     		.contextPath("{{route.basePath}}")
     		.port("{{route.port}}")
-    		.bindingMode(RestBindingMode.json_xml)
-    		.dataFormatProperty("prettyPrint", "true");
+    		.host("{{route.hostname}}")
+    		.bindingMode(RestBindingMode.json_xml) // Accept both JSON and XML and convert to a POJO
+    		.dataFormatProperty("prettyPrint", "true")
+    		.enableCORS(true) // Allow other domains to call API
+    		.apiContextPath("api-doc") // Swagger API documentation
+    		.apiProperty("api.version", "{{api.version}}")
+    		.apiProperty("api.title", "{{api.title}}")
+    		.apiProperty("api.description", "{{api.description}}")
+    		.apiProperty("api.contact.name", "{{api.contact.name}}");
     	
     	rest("{{route.url}}")
     		.post()
     			.type(QueryBalanceRequestMsg.class).outType(QueryBalanceResultMsg.class) // let jax-b and jackson know what to bind to
-    			.route()
+    			.route().routeId("spf_us_rest")
     			.setHeader("operationName", constant("QueryBalance")) // set operation, namespace and soapAction name because it is calling a soap webservice
     			.setHeader("operationNamespace", constant("http://www.huawei.com/bme/cbsinterface/cbs/accountmgr"))
     			.setHeader("soapAction", constant("QueryBalance"))
