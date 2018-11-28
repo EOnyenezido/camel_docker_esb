@@ -173,9 +173,9 @@
         <configuration>
           <images>
             <image>
-              <name>camelinaction/spring-docker</name>
+              <name>esb/querybalance</name>
               <build>
-                <from>openjdk:latest</from>
+                <from>openjdk:8u181-jdk</from>
                 <assembly>
                   <descriptorRef>artifact</descriptorRef>
                 </assembly>
